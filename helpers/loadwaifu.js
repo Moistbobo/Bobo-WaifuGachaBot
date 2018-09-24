@@ -6,6 +6,7 @@ let loadList = () => {
 	let bdoMemberList = [];
 	let animeWaifu = {};
 	let vnGameWaifu = {};
+	let bdoWaifu = {};
 	let metaData = {};
 	let bdoMembers = {names: [], datalist: {}};
 	let fs = require('fs');
@@ -39,9 +40,9 @@ let loadList = () => {
 				case 'BDO':
 					test['members'].forEach((member) => {
 						member.guild = seriesName;
-
-						bdoMemberList.push(member);
-						waifuBySeries.waifu.push(member.name);
+						series.names.push(member.name);
+						series.datalist[member.name] = member;
+						bdoWaifu[member.guild] = series;
 					});
 					break;
 				case 'VN/Game':
@@ -64,10 +65,13 @@ let loadList = () => {
 
 		});
 
+		// For random pulls
 		ret.animeWaifu = animeWaifu;
 		ret.vnGameWaifu = vnGameWaifu;
+		ret.bdoWaifu = bdoWaifu;
 		ret.metaData = metaData;
 
+		// Generate dictionary-life structure for faster lookups
 		Object.keys(animeWaifu).forEach((series) => {
 			let seriesListing = {};
 			seriesListing[series] = animeWaifu[series];
@@ -85,6 +89,16 @@ let loadList = () => {
 
 			Object.keys(vnGameWaifu[series].datalist).forEach((waifuName) => {
 				ret.allWaifu[waifuName.toLowerCase()] = vnGameWaifu[series].datalist[waifuName];
+			});
+		});
+
+		Object.keys(bdoWaifu).forEach((guild) => {
+			let seriesListing = {};
+			seriesListing[guild] = bdoWaifu[guild];
+			ret.allSeries[guild.toLowerCase()] = {names: seriesListing[guild].names};
+
+			Object.keys(bdoWaifu[guild].datalist).forEach((memberName) => {
+				ret.allWaifu[memberName.toLowerCase()] = bdoWaifu[guild].datalist[memberName];
 			});
 		});
 		console.log(ret);

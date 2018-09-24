@@ -5,17 +5,16 @@ exports.run = async (message, bot) => {
 
 	let time = new Date().getTime();
 	// First random, decide what type of waifu will be rolled
-	let waifuType = Math.floor(Math.random() * 2);
+	let waifuType = Math.floor(Math.random() * 3);
 
-	let rollType = waifuType === 0 ? waifulist.animeWaifu : waifulist.vnGameWaifu;
+	let rollType = waifuType === 0 ? waifulist.animeWaifu : waifuType === 1 ? waifulist.vnGameWaifu : waifulist.bdoWaifu;
 
 	let series = Object.keys(rollType)[Math.floor(Math.random() * Object.keys(rollType).length)];
-	console.log(series);
 
 	let ww = rollType[series].datalist;
 
 	let waifu = ww[Object.keys(ww)[Math.floor(Math.random() * Object.keys(ww).length)]];
-
+	let lookup = new Date().getTime() - time;
 	let embed = new Discord.RichEmbed()
 		.setTitle(`${waifu.name}`)
 		.setColor(0x00AE86)
@@ -24,7 +23,7 @@ exports.run = async (message, bot) => {
 	message.channel.send(embed).then(
 		// Create the reactionCollector
 		message => {
-			message.channel.send(`Retrieval and represent time: ${(new Date().getTime()) - time} ms`);
+			message.channel.send(`Lookup time: ${lookup}\nRetrieval and represent time: ${(new Date().getTime()) - time} ms`);
 			message.react(message.guild.emojis.get('492394595393732618'));
 			//message.react('💓');
 			let filter = (reaction, user) => reaction.emoji.id === '492394595393732618' && user.id !== bot.user.id;

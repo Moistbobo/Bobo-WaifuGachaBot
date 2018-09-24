@@ -14,7 +14,7 @@ exports.run = (message, bot) => {
 			.setTitle(message.args.toUpperCase())
 			.setColor(0xE06666)
 			.setDescription(`Series Type: ${rollList['metaData'][args]['type']} \n ${rollList['metaData'][args]['url']} 
-			\n**Obtainable Characters:** \n ${msg.toString().replace(/,/g, '')}`)
+			\n**Obtainable Characters [${series.names.length}]:** \n ${msg.toString().replace(/,/g, '')}`)
 			.setThumbnail(rollList['metaData'][args]['img']);
 
 		message.channel.send(emb);
