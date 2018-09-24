@@ -1,0 +1,27 @@
+{
+  "name": "waifubot",
+  "version": "1.0.0",
+  "description": "Made in China version of Mudae bot's waifu rolling",
+  "main": "bot.js",
+  "dependencies": {
+    "discord.js": "^11.4.2",
+    "sqlite3": "^4.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moistbobo/WaifuBot.git"
+  },
+  "keywords": [
+    "waifubot"
+  ],
+  "author": "Moistbobo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Moistbobo/WaifuBot/issues"
+  },
+  "homepage": "https://github.com/Moistbobo/WaifuBot#readme"
+}
