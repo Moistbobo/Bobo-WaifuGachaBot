@@ -2,11 +2,20 @@ let waifulist = require('../helpers/loadwaifu').rollList;
 let Discord = require('discord.js');
 
 exports.run = async (message, bot) => {
-	let randWaifuName = waifulist.waifuNames[Math.floor(Math.random() * waifulist.waifuNames.length)];
-	let waifu = waifulist.waifulist[randWaifuName];
 
-	console.log(randWaifuName);
-	console.log(waifu);
+	// First random, decide what type of waifu will be rolled
+	let waifuType = Math.floor(Math.random() * 2);
+
+	let rollType = waifuType === 0 ? waifulist.animeWaifu : waifulist.vnGameWaifu;
+
+	console.log(rollType);
+	let series = Object.keys(rollType)[Math.floor(Math.random() * Object.keys(rollType).length)];
+	console.log(series);
+
+	let ww = rollType[series].datalist;
+
+	let waifu = ww[Object.keys(ww)[Math.floor(Math.random() * Object.keys(ww).length)]];
+
 	let embed = new Discord.RichEmbed()
 		.setTitle(`${waifu.name}`)
 		.setColor(0x00AE86)
