@@ -1,32 +1,34 @@
-let waifulist = require('../helpers/loadwaifu').rollList;
+let allSeries = require('../helpers/loadwaifu').rollList.allSeries;
+let allWaifu = require('../helpers/loadwaifu').rollList.allWaifu;
+let rollList = require('../helpers/loadwaifu').rollList;
 let Discord = require('discord.js');
 
 exports.run = (message, bot) => {
-	if (waifulist[message.args.toLowerCase()]) {
 
-		let series = waifulist[message.args.toLowerCase()];
-		let msg = series.waifu.map((content) =>
+	let args = message.args.toLowerCase();
+	if(allSeries[args]){
+		let series = allSeries[args];
+		let msg = series.names.map((content) =>
 			content + '\n');
 		let emb = new Discord.RichEmbed()
-			.setTitle(message.args)
+			.setTitle(message.args.toUpperCase())
 			.setColor(0xE06666)
-			.setDescription(`Series Type: ${series.type} \n ${series.url} 
+			.setDescription(`Series Type: ${rollList['metaData'][args]['type']} \n ${rollList['metaData'][args]['url']} 
 			\n**Obtainable Characters:** \n ${msg.toString().replace(/,/g, '')}`)
-			.setThumbnail(series.img);
+			.setThumbnail(rollList['metaData'][args]['img']);
 
 		message.channel.send(emb);
 		return;
 	}
 
 	// Scan all waifus
-	if(waifulist.waifulist[message.args]){
-		let waifu = waifulist.waifulist[message.args];
+	if(allWaifu[args]){
+		let waifu = allWaifu[args];
 
-		let series = waifulist[message.args.toLowerCase()];
 		let emb = new Discord.RichEmbed()
 			.setTitle(`${waifu.name}`)
 			.setColor(0x00AE86)
-			.setDescription(`${waifu.series}\n\n${message.author.username}`)
+			.setDescription(`${waifu.series}\n\nRequested by: ${message.author.username}`)
 			.setImage(`${waifu.img[0]}`);
 
 		message.channel.send(emb);

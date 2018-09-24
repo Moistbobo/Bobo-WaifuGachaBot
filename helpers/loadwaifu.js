@@ -1,11 +1,12 @@
 "use strict";
 let loadList = () => {
-	let ret = {};
+	let ret = {allSeries: {}, allWaifu: {}};
 	let waifulist = {};
 	let waifuNames = [];
 	let bdoMemberList = [];
 	let animeWaifu = {};
 	let vnGameWaifu = {};
+	let metaData = {};
 	let bdoMembers = {names: [], datalist: {}};
 	let fs = require('fs');
 	// @ts-ignore
@@ -20,15 +21,16 @@ let loadList = () => {
 				waifu: []
 			};
 			let series = {names: [], datalist: {}};
+			metaData[seriesName.toLowerCase()] = {
+				url: test.url,
+				img: test.img,
+				description: test.description,
+				type: test.type
+			};
 			switch (test['type']) {
 				case 'Anime':
 					test['waifus'].forEach((waifu) => {
 						waifu.series = seriesName;
-						let name = waifu.name;
-						waifulist[name] = waifu;
-						waifuBySeries.waifu.push(waifu.name);
-						waifuNames.push(waifu.name);
-
 						series.names.push(waifu.name);
 						series.datalist[waifu.name] = waifu;
 						animeWaifu[waifu.series] = series;
@@ -37,20 +39,14 @@ let loadList = () => {
 				case 'BDO':
 					test['members'].forEach((member) => {
 						member.guild = seriesName;
-						let tempMember = {};
-						tempMember[member.name] = member;
-						//waifulist[member.name] = member;
+
 						bdoMemberList.push(member);
 						waifuBySeries.waifu.push(member.name);
-						//waifuNames.push(member.name);
 					});
 					break;
 				case 'VN/Game':
 					test['waifus'].forEach((waifu) => {
 						waifu.series = seriesName;
-						let tempWaifu = {};
-						waifulist[waifu.name] = waifu;
-
 						series.names.push(waifu.name);
 						series.datalist[waifu.name] = waifu;
 						vnGameWaifu[waifu.series] = series;
@@ -65,23 +61,35 @@ let loadList = () => {
 					});
 					break;
 			}
-			// ret['waifulist'] = waifulist;
-			// ret['bdoMemberList'] = bdoMemberList.sort();
-			// ret['seriesListing'] = {};
-			// ret['waifuNames'] = waifuNames;
-			// waifuBySeries['name'] = seriesName;
-			// waifuBySeries['url'] = test.url;
-			// waifuBySeries['img'] = test.img;
-			// waifuBySeries['type'] = test.type;
-			// waifuBySeries['description'] = test.description;
-			// waifuBySeries.waifu.sort();
-			// ret[seriesName.toLowerCase()] = waifuBySeries;
 
-
-			ret.animeWaifu = animeWaifu;
-			ret.vnGameWaifu = vnGameWaifu;
 		});
+
+		ret.animeWaifu = animeWaifu;
+		ret.vnGameWaifu = vnGameWaifu;
+		ret.metaData = metaData;
+
+		Object.keys(animeWaifu).forEach((series) => {
+			let seriesListing = {};
+			seriesListing[series] = animeWaifu[series];
+			ret.allSeries[series.toLowerCase()] = {names: seriesListing[series].names};
+
+			Object.keys(animeWaifu[series].datalist).forEach((waifuName) => {
+				ret.allWaifu[waifuName.toLowerCase()] = animeWaifu[series].datalist[waifuName];
+			});
+		});
+
+		Object.keys(vnGameWaifu).forEach((series) => {
+			let seriesListing = {};
+			seriesListing[series] = vnGameWaifu[series];
+			ret.allSeries[series.toLowerCase()] = {names: seriesListing[series].names};
+
+			Object.keys(vnGameWaifu[series].datalist).forEach((waifuName) => {
+				ret.allWaifu[waifuName.toLowerCase()] = vnGameWaifu[series].datalist[waifuName];
+			});
+		});
+		console.log(ret);
 	});
+
 
 	return ret;
 };

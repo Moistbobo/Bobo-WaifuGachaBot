@@ -3,12 +3,12 @@ let Discord = require('discord.js');
 
 exports.run = async (message, bot) => {
 
+	let time = new Date().getTime();
 	// First random, decide what type of waifu will be rolled
 	let waifuType = Math.floor(Math.random() * 2);
 
 	let rollType = waifuType === 0 ? waifulist.animeWaifu : waifulist.vnGameWaifu;
 
-	console.log(rollType);
 	let series = Object.keys(rollType)[Math.floor(Math.random() * Object.keys(rollType).length)];
 	console.log(series);
 
@@ -24,6 +24,7 @@ exports.run = async (message, bot) => {
 	message.channel.send(embed).then(
 		// Create the reactionCollector
 		message => {
+			message.channel.send(`Retrieval and represent time: ${(new Date().getTime()) - time} ms`);
 			message.react(message.guild.emojis.get('492394595393732618'));
 			//message.react('💓');
 			let filter = (reaction, user) => reaction.emoji.id === '492394595393732618' && user.id !== bot.user.id;
