@@ -5,9 +5,9 @@ exports.run = async (message, bot) => {
 
 	let time = new Date().getTime();
 	// First random, decide what type of waifu will be rolled
-	let waifuType = Math.floor(Math.random() * 3);
+	let waifuType = Math.floor(Math.random() * 2);
 
-	let rollType = waifuType === 0 ? waifulist.animeWaifu : waifuType === 1 ? waifulist.vnGameWaifu : waifulist.bdoWaifu;
+	let rollType = waifuType === 0 ? waifulist.animeWaifu :  waifulist.vnGameWaifu;
 
 	let series = Object.keys(rollType)[Math.floor(Math.random() * Object.keys(rollType).length)];
 

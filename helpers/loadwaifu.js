@@ -101,7 +101,6 @@ let loadList = () => {
 				ret.allWaifu[memberName.toLowerCase()] = bdoWaifu[guild].datalist[memberName];
 			});
 		});
-		console.log(ret);
 	});
 
 
