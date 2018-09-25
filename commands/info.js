@@ -79,7 +79,8 @@ exports.run = (message, bot) => {
             .setTitle(`${waifu.name}`)
             .setColor(0x00AE86)
             .setDescription(`${waifu.series}\n\nRequested by: ${message.author.username}`)
-            .setImage(`${waifu.img[0]}`);
+            .setImage(`${waifu.img[0]}`)
+            .setFooter(`1/${waifu.img.length}`);
 
         message.channel.send(emb).then(msg => {
             if (waifu.img.length > 1) {

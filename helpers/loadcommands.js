@@ -10,7 +10,6 @@ exports.load = () => {
 				let name = f.slice(0, -3);
 				cmds[name] = {run: cmd.run, conf: cmd.conf};
 				cmds[cmd.conf.alias] = {run: cmd.run, conf: cmd.conf, timer: new Date().getTime()}
-				console.log(f);
 			} catch (err) {
 				console.log(err);
 			}
