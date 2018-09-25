@@ -53,6 +53,7 @@ eg2: M_Legend of fatties.json (file for male characters from a show called legen
 
 3. If you're unsure if you're doing it right, put your json file into this validator: [https://jsonlint.com/] 
 
+If you've made up your mind on helping DM me on discord with a series/group/w/e you want to do so I can tell you if someone else is already doing it.
 
 
 ```JSON
