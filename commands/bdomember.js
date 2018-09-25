@@ -2,12 +2,16 @@ let waifulist = require('../helpers/loadwaifu').rollList;
 let Discord = require('discord.js');
 
 exports.run = (message, bot) => {
-	let member = waifulist.bdoMemberList[Math.floor(Math.random() * waifulist.bdoMemberList.length)];
+	let rollList = waifulist.bdoWaifu;
+	let guild = Object.keys(rollList)[Math.floor(Math.random() * Object.keys(rollList).length)];
+	let guildRoster = rollList[guild].datalist;
+
+	let member = guildRoster[Object.keys(guildRoster)[Math.floor(Math.random() * Object.keys(guildRoster).length)]];
 
 	let embed = new Discord.RichEmbed()
 		.setTitle(`${member.name}`)
 		.setColor(0x00AE86)
-		.setDescription(`${member.guild}\n\nRolled by: ${message.author.username}`)
+		.setDescription(`${member.series}\n\nRolled by: ${message.author.username}`)
 		.setImage(`${member.img[0]}`);
 
 	message.channel.send(embed);

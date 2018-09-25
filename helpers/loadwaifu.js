@@ -30,7 +30,7 @@ let loadList = () => {
 			};
 			switch (test['type']) {
 				case 'Anime':
-					test['waifus'].forEach((waifu) => {
+					test['characters'].forEach((waifu) => {
 						waifu.series = seriesName;
 						series.names.push(waifu.name);
 						series.datalist[waifu.name] = waifu;
@@ -38,15 +38,15 @@ let loadList = () => {
 					});
 					break;
 				case 'BDO':
-					test['members'].forEach((member) => {
-						member.guild = seriesName;
+					test['characters'].forEach((member) => {
+						member.series = seriesName;
 						series.names.push(member.name);
 						series.datalist[member.name] = member;
-						bdoWaifu[member.guild] = series;
+						bdoWaifu[member.series] = series;
 					});
 					break;
 				case 'VN/Game':
-					test['waifus'].forEach((waifu) => {
+					test['characters'].forEach((waifu) => {
 						waifu.series = seriesName;
 						series.names.push(waifu.name);
 						series.datalist[waifu.name] = waifu;
@@ -54,7 +54,7 @@ let loadList = () => {
 					});
 					break;
 				case 'GAME':
-					test['waifus'].forEach((waifu) => {
+					test['characters'].forEach((waifu) => {
 						waifu.series = seriesName;
 						waifulist[waifu.name] = waifu;
 						waifuBySeries.waifu.push(waifu.name);
