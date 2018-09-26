@@ -147,6 +147,7 @@ let loadList = () => {
                 ret.allWaifu[character.toLowerCase()] = vnGameHusbando[series].datalist[character];
             })
         });
+
     });
 
 

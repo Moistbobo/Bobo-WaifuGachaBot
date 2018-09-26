@@ -37,7 +37,7 @@ exports.run = (message, bot) => {
             if (series.names.length > maxNamePerPage) {
                 msg.react('◀').then(r => msg.react('▶'));
                 let filter = (reaction, user) => user.id !== bot.user.id;
-                let collector = msg.createReactionCollector(filter, {time: 30000});
+                let collector = msg.createReactionCollector(filter, {time: 60000});
                 let index = 0;
                 collector.on('collect', e => {
                     switch (e.emoji.name) {
@@ -86,7 +86,7 @@ exports.run = (message, bot) => {
             if (waifu.img.length > 1) {
                 msg.react('◀').then(r => msg.react('▶'));
                 let filter = (reaction, user) => user.id !== bot.user.id;
-                let collector = msg.createReactionCollector(filter, {time: 30000});
+                let collector = msg.createReactionCollector(filter, {time: 60000});
                 let index = 0;
 
                 collector.on('collect', e => {
