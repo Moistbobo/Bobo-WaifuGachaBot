@@ -1,25 +1,23 @@
-let waifulist = require('../helpers/loadwaifu');
 let Discord = require('discord.js');
 
-exports.run = async (message, bot) => {
-
-    let allSeries = waifulist.rollList.allSeries;
-
-    if(!allSeries.hasOwnProperty(message.args.toLowerCase())){
-        message.channel.send(`${message.channel.args} is not in my db, go lick a dick`);
-        return;
-    }
-
-    let series = allSeries[message.args.toLowerCase()];
-
-    let characterName = series.names[Math.floor(Math.random() * series.names.length)];
-
-    let waifu = waifulist.rollList.allWaifu[characterName.toLowerCase()];
-    let embed = new Discord.RichEmbed()
+exports.createClaimEmbed = (waifu, messageAuthor) =>{
+    return new Discord.RichEmbed()
         .setTitle(`${waifu.name}`)
         .setColor(0x00AE86)
-        .setDescription(`${waifu.series}\n\nRolled by: ${message.author.username}`)
+        .setDescription(`${waifu.series}\n\nRolled by: ${messageAuthor}`)
         .setImage(`${waifu.img[0]}`);
+};
+
+exports.createAndSendClaimEmbed = (rollList, message, bot) =>{
+
+    let rollType = rollList;
+    let series = Object.keys(rollType)[Math.floor(Math.random() * Object.keys(rollType).length)];
+    let seriesWaifus = rollType[series].datalist;
+    let waifu = seriesWaifus[Object.keys(rollType[series].datalist)[Math.floor(Math.random()
+        * Object.keys(seriesWaifus).length)]];
+
+    let embed = this.createClaimEmbed(waifu, message.author.username);
+
     message.channel.send(embed).then(
         // Create the reactionCollector
         message => {
@@ -49,13 +47,4 @@ exports.run = async (message, bot) => {
             });
         }
     );
-};
-
-exports.conf = {
-    name: "Series Roll",
-    fullcmd: "SeriesRoll",
-    alias: "sr",
-    description: "Roll a random character from a particular series (includes male and female)",
-    timer: 1250,
-    tokenCost: 5
 };
