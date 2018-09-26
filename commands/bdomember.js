@@ -20,7 +20,7 @@ exports.run = (message, bot) => {
 exports.conf = {
 	name: "Roll BDO Member",
 	fullcmd: "bdomember",
-	alias: "bm",
+	alias: "bdo",
 	description: "Roll a random BDO player from an actual guild",
 	timer: 1500
 };

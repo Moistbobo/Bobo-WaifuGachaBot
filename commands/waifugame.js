@@ -7,7 +7,7 @@ exports.run = async (message, bot) => {
 	// First random, decide what type of waifu will be rolled
 	let waifuType = Math.floor(Math.random() * 2);
 
-	let rollType = waifulist.animeWaifu;
+	let rollType = waifulist.vnGameWaifu;
 
 	let series = Object.keys(rollType)[Math.floor(Math.random() * Object.keys(rollType).length)];
 
@@ -53,9 +53,9 @@ exports.run = async (message, bot) => {
 };
 
 exports.conf = {
-	name: "Roll Waifu",
-	fullcmd: "waifu",
-	alias: "w",
-	description: "Roll a random waifu from the waifu list",
+	name: "Roll Waifu from game",
+	fullcmd: "waifugame",
+	alias: "wg",
+	description: "Roll a random waifu from the waifugame list",
 	timer: 1250
 };

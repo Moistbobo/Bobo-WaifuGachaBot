@@ -14,7 +14,7 @@ exports.run = (message, bot) => {
         let pagedNames = [];
         let tempList = [];
         let counter = 0;
-        series.names.forEach((name) => {
+        series.names.sort().forEach((name) => {
             tempList.push(name);
             counter++;
             if (counter % maxNamePerPage === 0 || counter === series.names.length) {
