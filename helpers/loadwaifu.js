@@ -85,6 +85,8 @@ let loadList = () => {
      //    // }
 
 
+
+
         // Generate dictionary-life structure for faster lookups
         Object.keys(animeWaifu).forEach((series) => {
             let seriesListing = {};
@@ -92,7 +94,7 @@ let loadList = () => {
             ret.allSeries[series.toLowerCase()] = {names: seriesListing[series].names};
 
             Object.keys(animeWaifu[series].datalist).forEach((waifuName) => {
-                ret.allWaifu[waifuName.toLowerCase()] = animeWaifu[series].datalist[waifuName];
+                ret.allWaifu[waifuName.toLowerCase().trim()] = animeWaifu[series].datalist[waifuName];
             });
         });
 
@@ -102,7 +104,7 @@ let loadList = () => {
             ret.allSeries[series.toLowerCase()] = {names: seriesListing[series].names};
 
             Object.keys(vnGameWaifu[series].datalist).forEach((waifuName) => {
-                ret.allWaifu[waifuName.toLowerCase()] = vnGameWaifu[series].datalist[waifuName];
+                ret.allWaifu[waifuName.toLowerCase().trim()] = vnGameWaifu[series].datalist[waifuName];
             });
         });
 
@@ -112,7 +114,7 @@ let loadList = () => {
             ret.allSeries[guild.toLowerCase()] = {names: seriesListing[guild].names};
 
             Object.keys(bdoWaifu[guild].datalist).forEach((memberName) => {
-                ret.allWaifu[memberName.toLowerCase()] = bdoWaifu[guild].datalist[memberName];
+                ret.allWaifu[memberName.toLowerCase().trim()] = bdoWaifu[guild].datalist[memberName];
             });
         });
 
@@ -122,7 +124,7 @@ let loadList = () => {
             ret.allSeries[series.toLowerCase()] = {names: seriesListing[series].names};
 
             Object.keys(mangaWaifu[series].datalist).forEach((memberName) => {
-                ret.allWaifu[memberName.toLowerCase()] = mangaWaifu[series].datalist[memberName];
+                ret.allWaifu[memberName.toLowerCase().trim()] = mangaWaifu[series].datalist[memberName];
             });
         });
 
@@ -137,7 +139,7 @@ let loadList = () => {
             }
 
             Object.keys(animeHusbando[series].datalist).forEach((character) => {
-                ret.allWaifu[character.toLowerCase()] = animeHusbando[series].datalist[character];
+                ret.allWaifu[character.toLowerCase().trim()] = animeHusbando[series].datalist[character];
             })
         });
 
@@ -152,7 +154,7 @@ let loadList = () => {
             }
 
             Object.keys(vnGameHusbando[series].datalist).forEach((character) => {
-                ret.allWaifu[character.toLowerCase()] = vnGameHusbando[series].datalist[character];
+                ret.allWaifu[character.toLowerCase().trim()] = vnGameHusbando[series].datalist[character];
             })
         });
 
@@ -167,7 +169,7 @@ let loadList = () => {
             }
 
             Object.keys(mangaHusbando[series].datalist).forEach((character) => {
-                ret.allWaifu[character.toLowerCase()] = mangaHusbando[series].datalist[character];
+                ret.allWaifu[character.toLowerCase().trim()] = mangaHusbando[series].datalist[character];
             })
         });
     });
