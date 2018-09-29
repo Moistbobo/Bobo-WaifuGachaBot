@@ -80,9 +80,10 @@ exports.run = (message, bot) => {
         let emb = new Discord.RichEmbed()
             .setTitle(`${waifu.name}`)
             .setColor(0x00AE86)
-            .setDescription(`${waifu.series}\n\nRequested by: ${message.author.username}`)
+            .setDescription(`${waifu.series}\n\nRequested by: ${message.author.username}\n${nsfwEmbed(waifu)}`)
             .setImage(`${waifu.img[0]}`)
             .setFooter(`1/${waifu.img.length}`);
+
 
         message.channel.send(emb).then(msg => {
             if (waifu.img.length > 1) {
@@ -106,7 +107,7 @@ exports.run = (message, bot) => {
                     let emb = new Discord.RichEmbed()
                         .setTitle(`${waifu.name}`)
                         .setColor(0x00AE86)
-                        .setDescription(`${waifu.series}\n\nRequested by: ${message.author.username}`)
+                        .setDescription(`${waifu.series}\n\nRequested by: ${message.author.username}\n${nsfwEmbed(waifu)}`)
                         .setFooter(`${index + 1}/${waifu.img.length}`)
                         .setImage(`${waifu.img[index]}`);
 
@@ -126,7 +127,17 @@ let normalizeValue = (num, max) => {
     if (num < 0) return max - 1;
     if (num > max - 1) return 0;
     return num;
-}
+};
+
+let nsfwEmbed = (waifu) => {
+    let nsfwList = require('../helpers/loadwaifu').nsfwList;
+    if (nsfwList.hasOwnProperty(waifu.series.toLowerCase())) {
+        if (nsfwList[waifu.series.toLowerCase()].hasOwnProperty(waifu.name.toLowerCase())) {
+            return '🔞 Has random NSFW';
+        }
+    }
+    return '';
+};
 
 exports.conf = {
     name: "Show Image",

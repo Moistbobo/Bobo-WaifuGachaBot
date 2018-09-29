@@ -4,6 +4,7 @@
   "description": "Made in China version of Mudae bot's waifu rolling",
   "main": "bot.js",
   "dependencies": {
+    "booru": "^1.2.1",
     "discord.js": "^11.4.2",
     "sqlite3": "^4.0.2"
   },

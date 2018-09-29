@@ -15,10 +15,10 @@ let loadList = () => {
 
     let fs = require('fs');
     // @ts-ignore
-    fs.readdir('./Assets', function (err, files) {
+    fs.readdir('./Assets/Characters', function (err, files) {
         // @ts-ignore
         files.forEach(function (file) {
-            let test = JSON.parse(fs.readFileSync('./Assets/' + file, 'utf8'));
+            let test = JSON.parse(fs.readFileSync('./Assets/Characters/' + file, 'utf8'));
 
             // Add the waifu name to a different array, sorted by series
 
@@ -199,7 +199,15 @@ let addToSearchListing = (listToAdd,ret) =>{
     });
 };
 
+let loadNSFW = () =>{
+    let fs = require('fs');
+    let file = JSON.parse(fs.readFileSync('./Assets/nsfw_list.json', 'utf8'));
+    return file;
+};
+
 const rollList = loadList();
+const nsfwList = loadNSFW();
 
 exports.rollList = rollList;
+exports.nsfwList = nsfwList;
 

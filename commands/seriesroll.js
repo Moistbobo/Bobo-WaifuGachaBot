@@ -15,11 +15,13 @@ exports.run = async (message, bot) => {
     let characterName = series.names[Math.floor(Math.random() * series.names.length)];
 
     let waifu = waifulist.rollList.allWaifu[characterName.toLowerCase()];
+
     let embed = new Discord.RichEmbed()
         .setTitle(`${waifu.name}`)
         .setColor(0x00AE86)
         .setDescription(`${waifu.series}\n\nRolled by: ${message.author.username}`)
-        .setImage(`${waifu.img[0]}`);
+        .setImage(`${waifu.img[0]}`)
+        .setFooter(`NSFW does not appear in series roll.`);
     message.channel.send(embed).then(
         // Create the reactionCollector
         message => {

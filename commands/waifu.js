@@ -3,7 +3,6 @@ let Discord = require('discord.js');
 
 exports.run = async (message, bot) => {
 	require('../helpers/claimWaifuEmbedGenerator').createAndSendClaimEmbed(waifulist.animeWaifu, message, bot);
-
 };
 
 exports.conf = {
