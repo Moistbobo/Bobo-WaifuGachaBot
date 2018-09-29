@@ -4,11 +4,13 @@ let loadList = () => {
 
 
     let animeWaifu = {};
+    let mangaWaifu = {};
     let vnGameWaifu = {};
     let bdoWaifu = {};
     let metaData = {};
 
     let animeHusbando = {};
+    let mangaHusbando = {};
     let vnGameHusbando = {};
 
     let fs = require('fs');
@@ -47,35 +49,10 @@ let loadList = () => {
                     case 'VN/Game':
                         isFemale ? vnGameWaifu[character.series] = series : vnGameHusbando[character.series] = series;
                         break;
+                    case 'Manga':
+                        isFemale ? mangaWaifu[character.series] = series : mangaHusbando[character.series] = series;
                 }
             });
-
-            // switch (test['type']) {
-            //     case 'Anime':
-            //         test['characters'].forEach((waifu) => {
-            //             waifu.series = seriesName;
-            //             series.names.push(waifu.name);
-            //             series.datalist[waifu.name] = waifu;
-            //             animeWaifu[waifu.series] = series;
-            //         });
-            //         break;
-            //     case 'BDO':
-            //         test['characters'].forEach((member) => {
-            //             member.series = seriesName;
-            //             series.names.push(member.name);
-            //             series.datalist[member.name] = member;
-            //             bdoWaifu[member.series] = series;
-            //         });
-            //         break;
-            //     case 'VN/Game':
-            //         test['characters'].forEach((waifu) => {
-            //             waifu.series = seriesName;
-            //             series.names.push(waifu.name);
-            //             series.datalist[waifu.name] = waifu;
-            //             vnGameWaifu[waifu.series] = series;
-            //         });
-            //         break;
-            // }
             console.log(`Loaded: ${file}`);
         });
 
@@ -85,7 +62,28 @@ let loadList = () => {
         ret.bdoWaifu = bdoWaifu;
         ret.animeHusbando = animeHusbando;
         ret.vnGameHusbando = vnGameHusbando;
+        ret.mangaWaifu = mangaWaifu;
+        ret.mangaHusbando = mangaHusbando;
         ret.metaData = metaData;
+
+     //    let characterList = [
+     //        animeWaifu,
+     //        vnGameWaifu,
+     //        bdoWaifu,
+     //        animeHusbando,
+     //        vnGameHusbando,
+     //        mangaWaifu,
+     //        mangaHusbando
+     //    ];
+     //
+     // ret = addToSearchListing(vnGameWaifu, ret);
+     //
+     // ret = addToSearchListing(animeWaifu, ret);
+     // ret = addToSearchListing(animeHusbando, ret);
+     //    // for(let i = 0; i < characterList.length; i++){
+     //    //     ret = addToSearchListing(characterList[i], ret);
+     //    // }
+
 
         // Generate dictionary-life structure for faster lookups
         Object.keys(animeWaifu).forEach((series) => {
@@ -115,6 +113,16 @@ let loadList = () => {
 
             Object.keys(bdoWaifu[guild].datalist).forEach((memberName) => {
                 ret.allWaifu[memberName.toLowerCase()] = bdoWaifu[guild].datalist[memberName];
+            });
+        });
+
+        Object.keys(mangaWaifu).forEach((series) => {
+            let seriesListing = {};
+            seriesListing[series] = mangaWaifu[series];
+            ret.allSeries[series.toLowerCase()] = {names: seriesListing[series].names};
+
+            Object.keys(mangaWaifu[series].datalist).forEach((memberName) => {
+                ret.allWaifu[memberName.toLowerCase()] = mangaWaifu[series].datalist[memberName];
             });
         });
 
@@ -148,10 +156,45 @@ let loadList = () => {
             })
         });
 
+        Object.keys(mangaHusbando).forEach((series) => {
+            let seriesListing = {};
+            seriesListing[series] = mangaHusbando[series];
+
+            if (ret.allSeries.hasOwnProperty(series.toLowerCase())) {
+                seriesListing[series].names.forEach((name) => {
+                    ret.allSeries[series.toLowerCase()].names.push(name);
+                })
+            }
+
+            Object.keys(mangaHusbando[series].datalist).forEach((character) => {
+                ret.allWaifu[character.toLowerCase()] = mangaHusbando[series].datalist[character];
+            })
+        });
     });
 
 
     return ret;
+};
+
+let addToSearchListing = (listToAdd,ret) =>{
+    Object.keys(listToAdd).forEach((series) => {
+        let seriesListing = {};
+        seriesListing[series] = listToAdd[series];
+
+        if (ret.allSeries.hasOwnProperty(series.toLowerCase())) {
+            seriesListing[series].names.forEach((name) => {
+                ret.allSeries[series.toLowerCase()].names.push(name);
+            })
+        }else{
+            ret.allSeries[series.toLowerCase()] = {names: seriesListing[series].names};
+        }
+
+        Object.keys(listToAdd[series].datalist).forEach((character) => {
+            ret.allWaifu[character.toLowerCase()] = listToAdd[series].datalist[character];
+        });
+
+        return ret;
+    });
 };
 
 const rollList = loadList();

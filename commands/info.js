@@ -29,6 +29,7 @@ exports.run = (message, bot) => {
             .setTitle(message.args.toUpperCase())
             .setColor(0xE06666)
             .setDescription(`Series Type: ${rollList['metaData'][args]['type']} \n ${rollList['metaData'][args]['url']} 
+			\n\n${rollList['metaData'][args]['description']}\n
 			\n**Obtainable Characters [${series.names.length}]:** \n ${nameList.toString().replace(/,/g, '')}`)
             .setThumbnail(rollList['metaData'][args]['img'])
             .setFooter(`1/${pagedNames.length}`);
@@ -57,6 +58,7 @@ exports.run = (message, bot) => {
                         .setTitle(message.args.toUpperCase())
                         .setColor(0xE06666)
                         .setDescription(`Series Type: ${rollList['metaData'][args]['type']} \n ${rollList['metaData'][args]['url']} 
+                        	\n\n${rollList['metaData'][args]['description']}\n
 			\n**Obtainable Characters [${series.names.length}]:** \n ${nameList.toString().replace(/,/g, '')}`)
                         .setThumbnail(rollList['metaData'][args]['img'])
                         .setFooter(`${index + 1}/${pagedNames.length}`);
