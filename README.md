@@ -1,6 +1,22 @@
 # WaifuBot
 Made in China version of Mudae bot's Waifu rolling. Assets have been omitted from this repository
 
+## Implemented features
+### Ecchi lookup
+On random waifu rolls, there is a random chance for a R18 reaction to appear on the message. Clicking the reaction will 
+trigger the bot to DM the user an Ecchi image of the character, queried from danbooru
+
+### Series only roll
+As the waifu db is expected to grow very large, users will be able to roll characters from a specific series, narrowing the total roll possibilities to increase the chance of getting their desired character
+
+## Planned features
+### Waifu Leveling
+As this bot will not have "exclusive waifus" (ie. Each waifu can only be claimed once), a waifu level system will be introduced.
+Claiming a waifu more than once will increase her level. Level up your waifus like pokemon and show them off
+
+### Currency based rolls
+Another ceiling controlling the rolling dynamic are waifu tokens. These will be used to roll for special waifus and increase the user's max waifu cap. Feel free to suggest additional things that can be done with waifu tokens
+
 ## How to help
 I need people to help build the waifu database for this bot.
 The bot is very flexible in the way that it is setup, such that it isn't only limited to waifu/husbandos from anime.
