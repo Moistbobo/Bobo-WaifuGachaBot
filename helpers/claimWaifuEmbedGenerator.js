@@ -3,7 +3,7 @@ let Discord = require('discord.js');
 exports.createAndSendClaimEmbed = (rollList, message, bot) => {
     let rand = Math.floor(Math.random() * 100);
 
-    if (rand < 5) {
+    if (rand < 1000) {
         createNSFWClaimEmbed(rollList, message, bot);
     } else {
         createSFWClaimEmbed(rollList, message, bot);
@@ -72,6 +72,7 @@ let createNSFWClaimEmbed = (rollList, message, bot) => {
         message.channel.send(embed).then(
             // Create the reactionCollector
             msg => {
+                let reactedList = {};
                 msg.react(msg.guild.emojis.get('492394595393732618')).then(e => {
                     if (danbooruTag !== false) {
                         msg.react('🔞');
@@ -89,7 +90,15 @@ let createNSFWClaimEmbed = (rollList, message, bot) => {
                             .setDescription(`Fetched from: ${imgUrl.src}`)
                             .setImage(imgUrl.img);
 
-                        message.author.send(nsfwEmbed);
+                        r.users.forEach((user) => {
+                            if (user.bot === false) {
+                                if (!reactedList.hasOwnProperty(user.id)) {
+                                    reactedList[user.id] = true;
+                                    console.log(`sent nudes to ${user.username}`);
+                                    user.send(nsfwEmbed);
+                                }
+                            }
+                        });
                         return;
                     }
                     if (r.emoji.id === '492394595393732618') {

@@ -6,6 +6,8 @@
   "dependencies": {
     "booru": "^1.2.1",
     "discord.js": "^11.4.2",
+    "es6-promise": "^4.2.5",
+    "isomorphic-fetch": "^2.2.1",
     "sqlite3": "^4.0.2"
   },
   "devDependencies": {},

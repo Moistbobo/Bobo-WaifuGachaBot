@@ -10,7 +10,7 @@ exports.run = (message, bot) => {
         let series = allSeries[args];
 
         // Pagenate the names
-        let maxNamePerPage = 10;
+        let maxNamePerPage = 20;
         let pagedNames = [];
         let tempList = [];
         let counter = 0;
