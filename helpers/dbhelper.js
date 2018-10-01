@@ -82,7 +82,7 @@ exports.claimWaifu = async (user, waifu) => {
                 console.log(claimDAO);
                 db.run(`INSERT into claimedList(ukey,serverid , userid , waifuCode, claimedAmount) 
                 VALUES('${claimDAO.key}','${claimDAO.serverid}','${claimDAO.userid}','${claimDAO.waifucode}','1')`)
-            }else{
+            } else {
                 // Entry exists, increase claimed count
                 console.log(row);
                 console.log('row exists, increase claimedAmount by one');
@@ -91,8 +91,4 @@ exports.claimWaifu = async (user, waifu) => {
             }
         })
     });
-};
-
-exports.getMarryList = async(user)=>{
-
 };
