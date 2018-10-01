@@ -26,8 +26,11 @@ exports.run = async (message, bot) => {
                     if (rollList.duplicateWaifuList.hasOwnProperty(waifuName)) return true;
                     return false;
                 };
+                console.log(splitWaifuCode);
 
-                let waifuInfo = rollList.allWaifu[`${splitWaifuCode[1]} ${shouldAddExtraTag(splitWaifuCode[1]) ? ` ${waifuSeries.extraTag}` : `` }`.trim()];
+                let waifuID = `${splitWaifuCode[1]}${shouldAddExtraTag(splitWaifuCode[1])?` ${waifuSeries.extraTag.toLowerCase()}` : `` }`.trim();
+                console.log(waifuID);
+                let waifuInfo = rollList.allWaifu[waifuID];
 
                 msg += `\n**[Lv.${row.claimedAmount}]** ${waifuInfo.name}`
             });
