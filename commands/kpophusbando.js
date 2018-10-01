@@ -9,5 +9,6 @@ exports.conf = {
     fullcmd: "kpophusbandp",
     alias: "kpoph",
     description: "Roll a random husbando from the kpop husbando list",
-    timer: 1250
+    timer: 1250,
+    tokenCost: 10
 };

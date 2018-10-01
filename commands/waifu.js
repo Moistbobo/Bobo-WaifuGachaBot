@@ -14,5 +14,6 @@ exports.conf = {
 	fullcmd: "waifu",
 	alias: "w",
 	description: "Roll a random waifu from the waifu list",
-	timer: 1250
+	timer: 1250,
+    tokenCost: 2
 };

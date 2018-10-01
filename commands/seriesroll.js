@@ -63,5 +63,5 @@ exports.conf = {
     alias: "sr",
     description: "Roll a random character from a particular series (includes male and female)",
     timer: 1250,
-    tokenCost: 5
+    tokenCost: 20
 };

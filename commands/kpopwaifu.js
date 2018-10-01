@@ -9,5 +9,6 @@ exports.conf = {
     fullcmd: "kpopwaifu",
     alias: "kpop",
     description: "Roll a random waifu from the kpop waifu list",
-    timer: 1250
+    timer: 1250,
+    tokenCost: 10
 };

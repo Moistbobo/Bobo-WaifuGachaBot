@@ -10,5 +10,6 @@ exports.conf = {
 	fullcmd: "waifugame",
 	alias: "wg",
 	description: "Roll a random waifu from the waifugame list",
-	timer: 1250
+	timer: 1250,
+    tokenCost: 5
 };

@@ -10,5 +10,6 @@ exports.conf = {
 	fullcmd: "husbandogame",
 	alias: "hg",
 	description: "Roll a random husbando from the husbando list",
-	timer: 1250
+	timer: 1250,
+    tokenCost: 5
 };

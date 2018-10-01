@@ -10,5 +10,6 @@ exports.conf = {
 	fullcmd: "bdomember",
 	alias: "bdo",
 	description: "Roll a random BDO player from an actual guild",
-	timer: 1500
+	timer: 1500,
+    tokenCost: 1
 };

@@ -155,5 +155,6 @@ exports.conf = {
     fullcmd: "info",
     alias: "im",
     description: "Show additional information of a character",
-    timer: 500
+    timer: 500,
+    tokenCost: 0
 };

@@ -11,5 +11,6 @@ exports.conf = {
 	fullcmd: "waifumanga",
 	alias: "wm",
 	description: "Roll a random waifu from the waifu manga list",
-	timer: 1250
+	timer: 1250,
+    tokenCost: 5
 };

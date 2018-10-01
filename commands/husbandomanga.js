@@ -11,5 +11,6 @@ exports.conf = {
 	fullcmd: "husbandomanga",
 	alias: "hm",
 	description: "Roll a random husbando from the husbando manga list",
-	timer: 1250
+	timer: 1250,
+    tokenCost: 5
 };

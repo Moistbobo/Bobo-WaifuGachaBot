@@ -9,5 +9,6 @@ exports.conf = {
     fullcmd: "total",
     alias: "t",
     description: "Show total characters that can be claimed",
-    timer: 500
+    timer: 500,
+    tokenCost: 0
 }

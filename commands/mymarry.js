@@ -26,8 +26,6 @@ exports.run = async (message, bot) => {
                     if (rollList.duplicateWaifuList.hasOwnProperty(waifuName)) return true;
                     return false;
                 };
-                console.log(splitWaifuCode);
-
                 let waifuID = `${splitWaifuCode[1]}${shouldAddExtraTag(splitWaifuCode[1])?` ${waifuSeries.extraTag.toLowerCase()}` : `` }`.trim();
                 console.log(waifuID);
                 let waifuInfo = rollList.allWaifu[waifuID];
@@ -37,7 +35,7 @@ exports.run = async (message, bot) => {
 
             let emb = new Discord.RichEmbed()
                 .setTitle(`${user.username}'s waifus`)
-                .setDescription(msg)
+                .setDescription(msg);
 
             message.channel.send(emb).then();
         });
