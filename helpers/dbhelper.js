@@ -52,3 +52,11 @@ exports.getWaifu = (waifuName) => {
 
 	return waifu;
 };
+
+exports.claimWaifu = async(user, waifu) =>{
+let db = new sqlite3.Database('./waifu.db', err=>{if(err)return console.log(err.message)});
+db.serialize(()=>{
+    db.run(`CREATE TABLE IF NOT EXISTS claimedList(userid text, waifuSeries text, waifuName text,claimedAmount smallint)`);
+
+});
+};

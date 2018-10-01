@@ -3,7 +3,7 @@ let Discord = require('discord.js');
 exports.createAndSendClaimEmbed = (rollList, message, bot) => {
     let rand = Math.floor(Math.random() * 100);
 
-    if (rand < 1000) {
+    if (rand < 5) {
         createNSFWClaimEmbed(rollList, message, bot);
     } else {
         createSFWClaimEmbed(rollList, message, bot);
@@ -15,7 +15,8 @@ let createClaimEmbed = (waifu, messageAuthor) => {
         .setTitle(`${waifu.name}`)
         .setColor(0x00AE86)
         .setDescription(`${waifu.series}\n\nRolled by: ${messageAuthor}`)
-        .setImage(`${waifu.img[0]}`);
+        .setImage(`${waifu.img[0]}`)
+        .setFooter(`${nsfwEmbed(waifu)}`);
 };
 
 let createSFWClaimEmbed = (rollList, message, bot) => {
@@ -75,14 +76,14 @@ let createNSFWClaimEmbed = (rollList, message, bot) => {
                 let reactedList = {};
                 msg.react(msg.guild.emojis.get('492394595393732618')).then(e => {
                     if (danbooruTag !== false) {
-                        msg.react('🔞');
+                        msg.react('😳');
                     }
                 });
 
                 let filter = (reaction, user) => user.id !== bot.user.id;
                 let collector = msg.createReactionCollector(filter, {time: 15000});
                 collector.on('collect', r => {
-                    if (r.emoji.name === '🔞') {
+                    if (r.emoji.name === '😳') {
                         // Send nsfw pm and return
                         let nsfwEmbed = new Discord.RichEmbed()
                             .setTitle(`${waifu.name}`)
@@ -136,6 +137,16 @@ let checkIfCharacterHasNSFW = (character) => {
         }
     }
     return false;
+};
+
+let nsfwEmbed = (waifu) => {
+    let nsfwList = require('../helpers/loadwaifu').nsfwList;
+    if (nsfwList.hasOwnProperty(waifu.series.toLowerCase())) {
+        if (nsfwList[waifu.series.toLowerCase()].hasOwnProperty(waifu.name.toLowerCase())) {
+            return '😳️ possible';
+        }
+    }
+    return '';
 };
 
 async function fetchNSFWImage(tag) {

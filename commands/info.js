@@ -10,12 +10,12 @@ exports.run = (message, bot) => {
         let series = allSeries[args];
 
         // Pagenate the names
-        let maxNamePerPage = 20;
+        let maxNamePerPage = 15;
         let pagedNames = [];
         let tempList = [];
         let counter = 0;
         series.names.sort().forEach((name) => {
-            tempList.push(name);
+            tempList.push(`${name} ${nsfwEmbed({series: args.toLowerCase(), name: name.toLowerCase()})}`);
             counter++;
             if (counter % maxNamePerPage === 0 || counter === series.names.length) {
                 pagedNames.push(tempList);
@@ -76,13 +76,24 @@ exports.run = (message, bot) => {
     // Scan all waifus
     if (allWaifu[args]) {
         let waifu = allWaifu[args];
+        let dupList = rollList.duplicateWaifuList;
+        if (dupList.hasOwnProperty(args)) {
+            let waifus = dupList[args].map((waifu) =>
+                `\n${waifu.name + ' '+waifu.extraTag}`
+            );
+            let msg = `There is more than one character with the specified name: ${waifus.toString().replace(/,/g,'')}`;
+
+            message.channel.send(msg).then();
+            return;
+        }
+
 
         let emb = new Discord.RichEmbed()
             .setTitle(`${waifu.name}`)
             .setColor(0x00AE86)
-            .setDescription(`${waifu.series}\n\nRequested by: ${message.author.username}\n${nsfwEmbed(waifu)}`)
+            .setDescription(`${waifu.series}\n\nRequested by: ${message.author.username}`)
             .setImage(`${waifu.img[0]}`)
-            .setFooter(`1/${waifu.img.length}`);
+            .setFooter(`1/${waifu.img.length}\n${nsfwEmbed(waifu)}`);
 
 
         message.channel.send(emb).then(msg => {
@@ -107,8 +118,8 @@ exports.run = (message, bot) => {
                     let emb = new Discord.RichEmbed()
                         .setTitle(`${waifu.name}`)
                         .setColor(0x00AE86)
-                        .setDescription(`${waifu.series}\n\nRequested by: ${message.author.username}\n${nsfwEmbed(waifu)}`)
-                        .setFooter(`${index + 1}/${waifu.img.length}`)
+                        .setDescription(`${waifu.series}\n\nRequested by: ${message.author.username}`)
+                        .setFooter(`${index + 1}/${waifu.img.length}\n${nsfwEmbed(waifu)}`)
                         .setImage(`${waifu.img[index]}`);
 
                     msg.edit(emb).then().catch();
@@ -133,7 +144,7 @@ let nsfwEmbed = (waifu) => {
     let nsfwList = require('../helpers/loadwaifu').nsfwList;
     if (nsfwList.hasOwnProperty(waifu.series.toLowerCase())) {
         if (nsfwList[waifu.series.toLowerCase()].hasOwnProperty(waifu.name.toLowerCase())) {
-            return '🔞 Has random NSFW';
+            return '😳️ possible';
         }
     }
     return '';
