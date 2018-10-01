@@ -12,7 +12,7 @@ exports.run = async (message, bot) => {
 
     let series = allSeries[message.args.toLowerCase()];
 
-    let characterName = series.names[Math.floor(Math.random() * series.names.length)];
+    let characterName = series.names[Math.floor(Math.random() * series.names.length - 0.0000000001)];
 
     let waifu = waifulist.rollList.allWaifu[characterName.toLowerCase()];
 
