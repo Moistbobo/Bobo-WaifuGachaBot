@@ -1,10 +1,10 @@
-let rollList = require('../helpers/loadwaifu').rollList;
+let totalWaifu = require('../helpers/loadwaifu').rollList;
 
-exports.run = (message, bot) =>{
-    message.channel.send(`There are ${Object.keys(rollList.allWaifu).length} characters in my database.`)
+exports.run = (message, bot) => {
+    message.channel.send(`There are ${totalWaifu.totalCounts.grandTotal} characters in my database.`);
 };
 
-exports.conf ={
+exports.conf = {
     name: "Total Characters",
     fullcmd: "total",
     alias: "t",

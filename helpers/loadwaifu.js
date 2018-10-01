@@ -1,19 +1,22 @@
 "use strict";
+
 let loadList = () => {
     let ret = {allSeries: {}, allWaifu: {}};
-
 
     let animeWaifu = {};
     let mangaWaifu = {};
     let vnGameWaifu = {};
     let bdoWaifu = {};
     let metaData = {};
+    let totalCounts = {};
 
     let animeHusbando = {};
     let mangaHusbando = {};
     let vnGameHusbando = {};
 
+    let totalWaifu = 0;
     let fs = require('fs');
+
     // @ts-ignore
     fs.readdir('./Assets/Characters', function (err, files) {
         // @ts-ignore
@@ -27,6 +30,7 @@ let loadList = () => {
 
             let series = {names: [], datalist: {}};
             metaData[seriesName.toLowerCase()] = {
+                name: seriesName,
                 url: test.url,
                 img: test.img,
                 description: test.description,
@@ -35,8 +39,9 @@ let loadList = () => {
             };
 
             let isFemale = file.substr(0, 1) === 'F' ? true : false;
-
+            let fileTotal = 0;
             test['characters'].forEach((character) => {
+                fileTotal++;
                 character.series = seriesName;
                 series.names.push(character.name);
                 series.datalist[character.name] = character;
@@ -54,9 +59,16 @@ let loadList = () => {
                         isFemale ? mangaWaifu[character.series] = series : mangaHusbando[character.series] = series;
                 }
             });
-            console.log(`Loaded: ${file}`);
+            if(totalCounts.hasOwnProperty(test['type'])){
+                totalCounts[test['type']] = totalCounts[test['type']]+=fileTotal;
+            }else{
+                totalCounts[test['type']] = fileTotal;
+            }
+            totalWaifu += fileTotal;
         });
 
+
+        totalCounts.grandTotal = totalWaifu;
         // For random pulls
         ret.animeWaifu = animeWaifu;
         ret.vnGameWaifu = vnGameWaifu;
@@ -67,6 +79,8 @@ let loadList = () => {
         ret.mangaHusbando = mangaHusbando;
         ret.metaData = metaData;
         ret.duplicateWaifuList = {};
+        ret.totalCounts = totalCounts;
+
 
         let characterList = [
             animeWaifu,
@@ -84,18 +98,16 @@ let loadList = () => {
                     list[seriesName].names.forEach((name) => {
                         ret.allSeries[seriesName.toLowerCase()].names.push(name);
                     })
-                }else{
+                } else {
                     ret.allSeries[seriesName.toLowerCase()] = {names: list[seriesName].names}
                 }
 
                 Object.keys(list[seriesName].datalist).forEach((waifuName) => {
                     if (ret.allWaifu.hasOwnProperty(waifuName.toLowerCase())) {
                         if (metaData[seriesName.toLowerCase()].hasOwnProperty('extraTag')) {
-                            let newWaifuName = waifuName + ' '+ metaData[seriesName.toLowerCase()]['extraTag'];
+                            let newWaifuName = waifuName + ' ' + metaData[seriesName.toLowerCase()]['extraTag'];
                             let existingWaifu = ret.allWaifu[waifuName.toLowerCase()];
-                            console.log(seriesName);
-                            console.log(existingWaifu);
-                            ret.allWaifu[waifuName.toLowerCase().trim() +' '+ metaData[existingWaifu.series.toLowerCase()].extraTag.toLowerCase()] = existingWaifu;
+                            ret.allWaifu[waifuName.toLowerCase().trim() + ' ' + metaData[existingWaifu.series.toLowerCase()].extraTag.toLowerCase()] = existingWaifu;
                             ret.allWaifu[newWaifuName.toLowerCase().trim()] = list[seriesName].datalist[waifuName];
 
 
