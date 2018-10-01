@@ -11,7 +11,8 @@ exports.run = (message, bot) => {
             Anime: [],
             Game: [],
             Manga: [],
-            BDO: []
+            BDO: [],
+            Kpop: []
         };
         Object.keys(seriesList.allSeries).forEach(series => {
             allSeries[seriesList.metaData[series].type].push(seriesList.metaData[series].name);

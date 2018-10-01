@@ -9,10 +9,12 @@ let loadList = () => {
     let bdoWaifu = {};
     let metaData = {};
     let totalCounts = {};
+    let kpopWaifu = {};
 
     let animeHusbando = {};
     let mangaHusbando = {};
     let vnGameHusbando = {};
+    let kpopHusbando = {};
 
     let totalWaifu = 0;
     let fs = require('fs');
@@ -57,6 +59,11 @@ let loadList = () => {
                         break;
                     case 'Manga':
                         isFemale ? mangaWaifu[character.series] = series : mangaHusbando[character.series] = series;
+                        break;
+                    case 'Kpop':
+                        isFemale? kpopWaifu[character.series] = series: kpopHusbando[character.series] = series;
+                        break;
+
                 }
             });
             if (totalCounts.hasOwnProperty(test['type'])) {
@@ -77,8 +84,11 @@ let loadList = () => {
         ret.vnGameHusbando = vnGameHusbando;
         ret.mangaWaifu = mangaWaifu;
         ret.mangaHusbando = mangaHusbando;
+        ret.kpopWaifu = kpopWaifu;
+        ret.kpopHusbando = kpopHusbando;
         ret.metaData = metaData;
         ret.duplicateWaifuList = {};
+        console.log(totalCounts);
         ret.totalCounts = totalCounts;
 
 
@@ -89,7 +99,9 @@ let loadList = () => {
             animeHusbando,
             vnGameHusbando,
             mangaWaifu,
-            mangaHusbando
+            mangaHusbando,
+            kpopWaifu,
+            kpopHusbando
         ];
 
         characterList.forEach((list) => {
