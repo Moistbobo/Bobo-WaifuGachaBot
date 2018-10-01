@@ -47,7 +47,7 @@ let loadList = () => {
                     case 'BDO':
                         bdoWaifu[character.series] = series;
                         break;
-                    case 'VN/Game':
+                    case 'Game':
                         isFemale ? vnGameWaifu[character.series] = series : vnGameHusbando[character.series] = series;
                         break;
                     case 'Manga':
