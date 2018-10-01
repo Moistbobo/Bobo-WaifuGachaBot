@@ -1,4 +1,5 @@
 let Discord = require('discord.js');
+let dbHelper = require('../helpers/dbhelper');
 
 exports.createAndSendClaimEmbed = (rollList, message, bot) => {
     let rand = Math.floor(Math.random() * 100);
@@ -30,30 +31,33 @@ let createSFWClaimEmbed = (rollList, message, bot) => {
 
     message.channel.send(embed).then(
         // Create the reactionCollector
-        message => {
-            message.react(message.guild.emojis.get('492394595393732618'));
+        msg => {
+            //message.react(message.guild.emojis.get('492394595393732618'));
+            msg.react('💖');
             //message.react('💓');
-            let filter = (reaction, user) => reaction.emoji.id === '492394595393732618' && user.id !== bot.user.id;
-            let collector = message.createReactionCollector(filter, {time: 15000});
+            let filter = (reaction, user) => reaction.emoji.name === '💖' && user.id !== bot.user.id;
+            let collector = msg.createReactionCollector(filter, {time: 15000});
             collector.on('collect', r => {
                 collector.stop();
-                message.clearReactions().then();
+                msg.clearReactions().then();
             });
             collector.on('end', collected => {
-                if (collected.get('492394595393732618')) {
-                    let userID = collected.get('492394595393732618').users.lastKey();
-                    message.channel.send('<@' + userID + '>' + ' has claimed ' + waifu.name + '!');
+                if (collected.get('💖')) {
+                    let userID = collected.get('💖').users.lastKey();
+                    let claimingUser = collected.get('💖').users.get(userID);
+                    msg.channel.send('<@' + userID + '>' + ' has claimed ' + waifu.name + '!');
                     let claimedEmbed = new Discord.RichEmbed()
                         .setTitle(`${waifu.name}`)
                         .setColor(0xE06666)
-                        .setDescription(`${waifu.series}\n\nRolled by: ${collected.get('492394595393732618').users.get(userID).username}`)
+                        .setDescription(`${waifu.series}\n\nRolled by: ${claimingUser.username}`)
                         .setImage(`${waifu.img[0]}`)
-                        .setFooter(`Claimed by ${collected.get('492394595393732618').users.get(userID).username}`,
-                            collected.get('492394595393732618').users.get(userID).avatarURL);
+                        .setFooter(`Claimed by ${claimingUser.username}`,
+                            claimingUser.avatarURL);
 
-                    message.edit(claimedEmbed);
+                    claimingUser.serverid = message.guild.id;
+                    dbHelper.claimWaifu(claimingUser, waifu).then(e => msg.edit(claimedEmbed));
                 }
-                message.clearReactions().then();
+                msg.clearReactions().then();
             });
         }
     );
@@ -74,7 +78,7 @@ let createNSFWClaimEmbed = (rollList, message, bot) => {
             // Create the reactionCollector
             msg => {
                 let reactedList = {};
-                msg.react(msg.guild.emojis.get('492394595393732618')).then(e => {
+                msg.react('💖').then(e => {
                     if (danbooruTag !== false) {
                         msg.react('😳');
                     }
@@ -102,24 +106,26 @@ let createNSFWClaimEmbed = (rollList, message, bot) => {
                         });
                         return;
                     }
-                    if (r.emoji.id === '492394595393732618') {
+                    if (r.emoji.name === '💖') {
                         collector.stop();
                         msg.clearReactions().then();
                     }
                 });
                 collector.on('end', collected => {
-                    if (collected.get('492394595393732618')) {
-                        let userID = collected.get('492394595393732618').users.lastKey();
+                    if (collected.get('💖')) {
+                        let userID = collected.get('💖').users.lastKey();
                         msg.channel.send('<@' + userID + '>' + ' has claimed ' + waifu.name + '!');
+                        let claimingUser = collected.get('💖').users.get(userID);
                         let claimedEmbed = new Discord.RichEmbed()
                             .setTitle(`${waifu.name}`)
                             .setColor(0xE06666)
-                            .setDescription(`${waifu.series}\n\nRolled by: ${collected.get('492394595393732618').users.get(userID).username}`)
+                            .setDescription(`${waifu.series}\n\nRolled by: ${claimingUser.username}`)
                             .setImage(`${waifu.img[0]}`)
-                            .setFooter(`Claimed by ${collected.get('492394595393732618').users.get(userID).username}`,
-                                collected.get('492394595393732618').users.get(userID).avatarURL);
+                            .setFooter(`Claimed by ${claimingUser.username}`,
+                                claimingUser.avatarURL);
 
-                        msg.edit(claimedEmbed);
+                        claimingUser.serverid = message.guild.id;
+                        dbHelper.claimWaifu(claimingUser, waifu).then(e => msg.edit(claimedEmbed));
                     }
                     msg.clearReactions().then();
                 });
