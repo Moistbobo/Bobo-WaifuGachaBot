@@ -33,6 +33,7 @@ The following is the skeleton for these files:
   "description": "",
   "url": "",
   "img": "",
+  "extraTag": "",
   "characters": [
     {
       "name": "",
@@ -68,6 +69,14 @@ eg2: M_Legend of fatties.json (file for male characters from a show called legen
 2. Images must be mirrored to imgur and must be **300 x 375**. This is for consistency and also mirroring prevents hot linking to some poor dude's site
 
 3. If you're unsure if you're doing it right, put your json file into this validator: [https://jsonlint.com/] 
+
+4. The extraTag field should be an abbrieviation of the series name in parentheses
+
+eg: 
+Black Desert Online = (BDO)
+Half Life 3 = (HL3)
+Counter Strike Global Offensive = (CSGO)
+
 
 If you've made up your mind on helping DM me on discord with a series/group/w/e you want to do so I can tell you if someone else is already doing it.
 
