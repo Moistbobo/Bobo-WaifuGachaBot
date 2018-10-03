@@ -4,7 +4,7 @@ Made in China version of Mudae bot's Waifu rolling. Assets have been omitted fro
 ## Implemented features
 ### Ecchi lookup
 On random waifu rolls, there is a random chance for a R18 reaction to appear on the message. Clicking the reaction will 
-trigger the bot to DM the user an Ecchi image of the character, queried from danbooru
+trigger the bot to DM the user an Ecchi image of the character, queried from gelbooru
 
 ### Series only roll
 As the waifu db is expected to grow very large, users will be able to roll characters from a specific series, narrowing the total roll possibilities to increase the chance of getting their desired character
