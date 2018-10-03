@@ -15,9 +15,15 @@ exports.run = async (message, bot) => {
 
     let msg = '';
 
+    //TODO: Move sql call into DBhelper
     let db = new sqlite3.Database('./waifu.db', err => {
         db.all(`SELECT waifuCode, claimedAmount FROM claimedList WHERE userid='${marryDAO.userid}' 
             AND serverid='${marryDAO.serverid}'`, (err, rows) => {
+
+            if (rows === undefined) {
+                message.channel.send(`<@${message.author.id}>\nYou do not have any waifus`);
+                return;
+            }
             rows.forEach((row) => {
                 let splitWaifuCode = row.waifuCode.split('_');
                 let waifuSeries = rollList.metaData[splitWaifuCode[0]];
@@ -26,7 +32,7 @@ exports.run = async (message, bot) => {
                     if (rollList.duplicateWaifuList.hasOwnProperty(waifuName)) return true;
                     return false;
                 };
-                let waifuID = `${splitWaifuCode[1]}${shouldAddExtraTag(splitWaifuCode[1])?` ${waifuSeries.extraTag.toLowerCase()}` : `` }`.trim();
+                let waifuID = `${splitWaifuCode[1]}${shouldAddExtraTag(splitWaifuCode[1]) ? ` ${waifuSeries.extraTag.toLowerCase()}` : `` }`.trim();
                 console.log(waifuID);
                 let waifuInfo = rollList.allWaifu[waifuID];
 

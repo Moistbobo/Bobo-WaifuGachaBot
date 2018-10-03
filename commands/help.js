@@ -4,8 +4,6 @@ let Discord = require('discord.js');
 
 exports.run = async (message, bot) => {
 
-    console.log(cmds);
-
     let msg = '';
     cmds.sort((a,b)=>{
         return b.cost < a.cost? 1

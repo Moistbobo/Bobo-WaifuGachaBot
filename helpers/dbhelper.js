@@ -69,9 +69,9 @@ exports.claimWaifu = async (user, waifu) => {
     };
 
     db.serialize(async () => {
-        db.run(`CREATE TABLE IF NOT EXISTS claimedList(ukey text NOT NULL PRIMARY KEY, serverid text, userid text, waifuCode text,claimedAmount smallint)`);
+        db.run(`CREATE TABLE IF NOT EXISTS claimedList(ukey text NOT NULL PRIMARY KEY, serverid text, userid text, waifuCode varchar(64),claimedAmount smallint)`);
         // Check if value exists
-        db.get(`SELECT * FROM claimedList WHERE ukey='${claimDAO.key}'`, (err, row) => {
+        db.get(`SELECT * FROM claimedList WHERE ukey='${claimDAO.key.replace("'","\"")}'`, (err, row) => {
             if (err) {
                 console.log(err);
                 return;
@@ -81,7 +81,9 @@ exports.claimWaifu = async (user, waifu) => {
                 console.log('inserting new entry for: ');
                 console.log(claimDAO);
                 db.run(`INSERT into claimedList(ukey,serverid , userid , waifuCode, claimedAmount) 
-                VALUES('${claimDAO.key}','${claimDAO.serverid}','${claimDAO.userid}','${claimDAO.waifucode}','1')`)
+                VALUES('${claimDAO.key.replace("'","\"")}','${claimDAO.serverid}','${claimDAO.userid}','${claimDAO.waifucode.replace("'","\"")}','1')`)
+                console.log(`INSERT into claimedList(ukey,serverid , userid , waifuCode, claimedAmount) 
+                VALUES('${claimDAO.key.replace("'","\"")}','${claimDAO.serverid}','${claimDAO.userid}','${claimDAO.waifucode.replace("'","\"")}','1')`);
             } else {
                 // Entry exists, increase claimed count
                 console.log(row);
