@@ -1,3 +1,7 @@
+# Notes
+This project was originally for me to test NodeJS's amazing i/o speed.
+This repo is no longer maintained and will be kept for history. I would like to rewrite the code here if I have the chance.
+
 # WaifuBot
 Made in China version of Mudae bot's Waifu rolling. Assets have been omitted from this repository
 
@@ -8,14 +12,6 @@ trigger the bot to DM the user an Ecchi image of the character, queried from gel
 
 ### Series only roll
 As the waifu db is expected to grow very large, users will be able to roll characters from a specific series, narrowing the total roll possibilities to increase the chance of getting their desired character
-
-## Planned features
-### Waifu Leveling
-As this bot will not have "exclusive waifus" (ie. Each waifu can only be claimed once), a waifu level system will be introduced.
-Claiming a waifu more than once will increase her level. Level up your waifus like pokemon and show them off
-
-### Currency based rolls
-Another ceiling controlling the rolling dynamic are waifu tokens. These will be used to roll for special waifus and increase the user's max waifu cap. Feel free to suggest additional things that can be done with waifu tokens
 
 ## How to help
 I need people to help build the waifu database for this bot.
@@ -110,7 +106,3 @@ If you've made up your mind on helping DM me on discord with a series/group/w/e 
   ]
 }
 ```
-
-
-
-DM me completed json files on discord at manbo#0003
