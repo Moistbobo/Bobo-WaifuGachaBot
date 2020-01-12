@@ -1,30 +1,26 @@
 {
-  "name": "waifubot",
+  "name": "chobot-v3",
   "version": "1.0.0",
-  "description": "Made in China version of Mudae bot's waifu rolling",
-  "main": "bot.js",
-  "dependencies": {
-    "booru": "^1.2.1",
-    "discord.js": "^11.4.2",
-    "es6-promise": "^4.2.5",
-    "isomorphic-fetch": "^2.2.1",
-    "sqlite3": "^4.0.2"
-  },
-  "devDependencies": {},
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-and-run": "tsc --build && node dist/index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Moistbobo/WaifuBot.git"
-  },
-  "keywords": [
-    "waifubot"
-  ],
-  "author": "Moistbobo",
+  "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Moistbobo/WaifuBot/issues"
+  "dependencies": {
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.2.0",
+    "nodemon": "^2.0.1"
   },
-  "homepage": "https://github.com/Moistbobo/WaifuBot#readme"
+  "devDependencies": {
+    "@types/node": "^12.12.14",
+    "@typescript-eslint/eslint-plugin": "^2.9.0",
+    "@typescript-eslint/parser": "^2.9.0",
+    "eslint": "^6.7.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "typescript": "^3.7.2"
+  }
 }
