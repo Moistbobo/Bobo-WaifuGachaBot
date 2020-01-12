@@ -28,6 +28,8 @@ module.exports = {
 	rules: {
 		"no-console": 0,
 		"no-unused-vars": 0,
-		"no-plusplus": 0
+		"no-plusplus": 0,
+		"no-tabs": 0,
+		"no-mixed-spaces-and-tabs": 0,
 	},
 };

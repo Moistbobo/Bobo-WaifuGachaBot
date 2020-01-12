@@ -31,6 +31,7 @@ const runBot = (token: string|undefined) => {
 
     const commandArgs: CommandArgs = {
       msg,
+      trigger: userCommand,
     };
 
     if (commandToRun) {
