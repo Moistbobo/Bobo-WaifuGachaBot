@@ -5,11 +5,16 @@ const action = (args: ICommandArgs) => {
 
   // as of 0.0.1-b
   channel.send(`
-  Instructions: Fill in your character's information and submit the data using the Add waifu command. \`\`\`{
+  Instructions: Fill in your character's information and submit the data using the Add waifu command.
+  \n
+  Optional fields:\n nameJp, nameAlt, images, meta\`\`\`{
 "name": "",
-"gender": "",
+"nameJp::"",
+"nameAlt": ["",""]:
+"type": "",
 "series":"",
-"image": "",
+"gender": "",
+"images": ["", ""],
 "meta":""
 }\`\`\``);
 };

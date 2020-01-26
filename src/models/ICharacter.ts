@@ -2,16 +2,23 @@ import {
   Document, Schema, Model, model,
 } from 'mongoose';
 
-export interface ICharacter{
+export interface ICharacter extends Document{
 	name: string;
+
+	nameJp?: string;
+
+	nameAlt?: string[];
 
 	series: string;
 
 	gender: string;
 
-	image: string;
+	type: string;
+
+	images: string[];
 
 	meta: string;
+
 }
 
 export interface ICharacterModel extends ICharacter, Document{}
@@ -19,11 +26,17 @@ export interface ICharacterModel extends ICharacter, Document{}
 export const CharacterSchema: Schema = new Schema({
   name: String,
 
+  nameJp: String,
+
+  nameAlt: [String],
+
+  type: String,
+
   series: String,
 
   gender: String,
 
-  image: String,
+  images: [String],
 
   meta: String,
 });
