@@ -1,7 +1,7 @@
 import * as Discord from 'discord.js';
-import { EmbedArgs } from '../models/EmbedArgs';
+import { IEmbedArgs } from '../models/IEmbedArgs';
 
-const createEmbed = (args: EmbedArgs, error = false) => {
+const createEmbed = (args: IEmbedArgs, error = false) => {
   const {
     footer, contents, author, url, title, image, thumbnail,
     extraFields,

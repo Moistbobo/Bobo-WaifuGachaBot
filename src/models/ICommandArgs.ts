@@ -1,6 +1,6 @@
 import * as Discord from 'discord.js';
 
-export interface CommandArgs {
+export interface ICommandArgs {
     // Message object
     msg: Discord.Message,
 

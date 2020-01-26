@@ -1,10 +1,10 @@
-interface ExtraField{
+interface IExtraField{
     name?:string,
     value?:string,
     inline?:boolean
 }
 
-export interface EmbedArgs {
+export interface IEmbedArgs {
     contents?: string;
     title?: string;
     footer?: string;
@@ -12,5 +12,5 @@ export interface EmbedArgs {
     url?: string;
     image?: string;
     thumbnail?: string;
-    extraFields?: Array<ExtraField>
+    extraFields?: Array<IExtraField>
 }

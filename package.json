@@ -12,9 +12,13 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
+    "mongodb": "^3.4.1",
+    "mongoose": "^5.8.7",
     "nodemon": "^2.0.1"
   },
   "devDependencies": {
+    "@types/mongodb": "^3.3.14",
+    "@types/mongoose": "^5.5.41",
     "@types/node": "^12.12.14",
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",

@@ -1,6 +1,6 @@
-import { CommandArgs } from '../../models/CommandArgs';
+import { ICommandArgs } from '../../models/ICommandArgs';
 
-const action = (args: CommandArgs) => {
+const action = (args: ICommandArgs) => {
   const { msg, msg: { channel } } = args;
 
   // Split the message by spaces

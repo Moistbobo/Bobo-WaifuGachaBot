@@ -1,7 +1,7 @@
 import action from './action';
-import { Command } from '../../models/Command';
+import { ICommand } from '../../models/ICommand';
 
-const HelloWorld: Command = {
+const HelloWorld: ICommand = {
   name: 'Hello world',
   triggers: ['helloWorld', 'hw'],
   action,

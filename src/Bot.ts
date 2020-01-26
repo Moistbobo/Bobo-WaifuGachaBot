@@ -1,8 +1,10 @@
 import Discord from 'discord.js';
+import mongoose from 'mongoose';
 import Commands from './commands';
-import { CommandArgs } from './models/CommandArgs';
-import { Command } from './models/Command';
+import { ICommandArgs } from './models/ICommandArgs';
+import { ICommand } from './models/ICommand';
 import AppConfig from './AppConfig';
+import MongoDbHelper from './services/db/MongoDbHelper';
 
 const runBot = (token: string|undefined) => {
   if (!token) {
@@ -20,7 +22,7 @@ const runBot = (token: string|undefined) => {
 
     const userCommand = msg.content.split(' ')[0].toLowerCase().replace(commandPrefix, '').trim();
 
-    const commandToRun:Command | undefined = Commands.find((command) => {
+    const commandToRun:ICommand | undefined = Commands.find((command) => {
       if (command.name.toLowerCase() === userCommand
       || command.triggers.includes(userCommand)) {
         return command;
@@ -29,7 +31,7 @@ const runBot = (token: string|undefined) => {
       return null;
     });
 
-    const commandArgs: CommandArgs = {
+    const commandArgs: ICommandArgs = {
       msg,
       trigger: userCommand,
     };
@@ -42,11 +44,13 @@ const runBot = (token: string|undefined) => {
   const client = new Discord.Client();
 
   client.on('message', onMessage);
+  client.on('disconnect', MongoDbHelper.disconnect);
+  client.on('error', MongoDbHelper.disconnect);
 
   client.login(token)
     .then(() => {
-      console.log('Bot logged in');
       console.log('Commands: \n', Commands.map((command) => command.name));
+      console.log(`\n Bobo Waifu bot version ${AppConfig.version} ready \n`);
     })
     .catch((err: Error) => {
       console.log('Failed to login\n', err.message);
