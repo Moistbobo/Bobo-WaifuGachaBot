@@ -32,11 +32,10 @@ const action = (args: ICommandArgs) => {
             .then((sentMessage) => {
               const message = sentMessage as Message;
 
+              const collectorOptions = { maxMatches: 1, time: 15000 };
               const filter = (m: Message) => (
                 !Number.isNaN(Number.parseInt(m.content, 10)) && m.author.id === senderId
               );
-
-              const collectorOptions = { maxMatches: 1, time: 15000 };
 
               message.channel.awaitMessages(filter, collectorOptions)
                 .then((collected) => {
