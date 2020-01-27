@@ -7,8 +7,6 @@ import Tools from './tools';
 import GlobalTools from '../../../tools/GlobalTools';
 import Errors from '../errors';
 
-import Global = WebAssembly.Global;
-
 const action = (args: ICommandArgs) => {
   const {
     msg: {
@@ -48,6 +46,7 @@ const action = (args: ICommandArgs) => {
                   .then((collected) => {
                     const enteredNumber = Number.parseInt(collected.first().content, 10);
                     const selectedCharacter = characters[enteredNumber - 1];
+                    characterInfo = selectedCharacter;
                     const msgEmbed = Tools.createWaifuInfoEmbed(selectedCharacter);
 
                     resolve(channel.send(msgEmbed));
