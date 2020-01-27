@@ -1,11 +1,11 @@
 import { ICommandArgs } from '../../../models/ICommandArgs';
-import MongoDbHelper from '../../../services/db/MongoDbHelper';
+import MongoDbHelper from '../../../services/MongoDbHelper';
 import { ICharacter } from '../../../models/ICharacter';
 import GlobalTools from '../../../tools/GlobalTools';
 
 const action = (args: ICommandArgs) => {
   const { msg: { channel } } = args;
-  MongoDbHelper.rollWaifu()
+  MongoDbHelper.fetchRandomWaifuFromDb()
     .then((waifu: ICharacter[]) => {
       console.log(waifu[0]);
       const {

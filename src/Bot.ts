@@ -4,7 +4,7 @@ import Commands from './commands';
 import { ICommandArgs } from './models/ICommandArgs';
 import { ICommand } from './models/ICommand';
 import AppConfig from './AppConfig';
-import MongoDbHelper from './services/db/MongoDbHelper';
+import MongoDbHelper from './services/MongoDbHelper';
 
 const runBot = (token: string|undefined) => {
   if (!token) {

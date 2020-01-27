@@ -1,7 +1,7 @@
 import { ICommandArgs } from '../../../models/ICommandArgs';
 import GlobalTools from '../../../tools/GlobalTools';
 import AppConfig from '../../../AppConfig';
-import MongoDbHelper from '../../../services/db/MongoDbHelper';
+import MongoDbHelper from '../../../services/MongoDbHelper';
 
 const action = (args: ICommandArgs) => {
   const { msg: { content, channel }, trigger } = args;
@@ -13,7 +13,7 @@ const action = (args: ICommandArgs) => {
       contents: `Attempting to save data: \`\`\`${JSON.stringify(characterArgs)}\`\`\``,
     }));
 
-    MongoDbHelper.saveWaifu(characterArgs)
+    MongoDbHelper.writeWaifuToDb(characterArgs)
       .then(() => {
         channel.send(`Character, ${characterArgs.name} saved successfully`);
       })
