@@ -4,7 +4,12 @@ Made in China version of Mudae bot's Waifu rolling. Currently being rewritten.
 Bot does not come with any data. You will have to add characters yourself for testing.
 
 ## Notes
-- This is not a complete waifubot app, additional features (such as claiming, duplicate checking, etc) will be added in the future.
+- This is not a complete waifubot app, additional features will be added in the future.
+
+## Current features
+- Adding waifu through valid json documents in discord
+- Waifu Gacha
+- Server based claiming
 
 ## Requirements
 - [NodeJS](https://nodejs.org/en/)
@@ -13,10 +18,11 @@ Bot does not come with any data. You will have to add characters yourself for te
 - **Optional**: [Robo3t](https://robomongo.org/download) 
 
 ## Getting started
-1. Clone the repo (develop branch)
-2. npm i
-3. Copy the `env.sample` as `.env` and fill out the `BOT_TOKEN` and `BOT_PREFIX` fields. By default, `BOT_PREFIX` is set to `.`
-4. npm run build-and-run
+1. Ensure requirements are installed
+2. Clone the repo (develop branch)
+3. `npm i`
+4. Copy the `env.sample` as `.env` and fill out the `BOT_TOKEN` and `BOT_PREFIX` fields. By default, `BOT_PREFIX` is set to `.`
+5. `npm run build-and-run`
 
 ## Adding and rolling
 1. Use the `.showtemplate` and copy the template arguments
