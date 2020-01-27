@@ -46,7 +46,6 @@ const runBot = (token: string|undefined) => {
 
   client.on('message', onMessage);
   client.on('disconnect', MongoDbHelper.disconnect);
-  client.on('error', MongoDbHelper.disconnect);
 
   client.login(token)
     .then(() => {
