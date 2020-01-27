@@ -1,10 +1,9 @@
 
 # WaifuBot (0.0.1-beta)
 Made in China version of Mudae bot's Waifu rolling. Currently being rewritten.
-Bot does not come with any data. You will have to add characters yourself for testing.
 
-## Notes
-- This is not a complete waifubot app, additional features will be added in the future.
+## Database files
+Database json files area available [here](https://github.com/Moistbobo/Bobo-waifubot-db)
 
 ## Current features
 - Adding waifu through valid json documents in discord
