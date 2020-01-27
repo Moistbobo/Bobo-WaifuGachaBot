@@ -20,7 +20,7 @@ const action = (args: ICommandArgs) => {
         // Since the next promise chain expects a promise that resolves to a message, we need to write a custom
         // promise that allows the user to pick from a list of characters that have the same name and then
         // outputting the selected character's information
-        return new Promise<any>((resolve) => {
+        return new Promise<Message | Message[]>((resolve) => {
           const contents = `
           More than one character found with name \`${characterName}\` Enter the a number to proceed\n`
                 + `${characters.map(
