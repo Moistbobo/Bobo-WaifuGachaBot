@@ -27,7 +27,6 @@ const outputCharacterInfo = (
 
   if (images.length === 1 || !sentMessage) return;
 
-
   const reactionFilter = (reaction: any, user: User) => (
     user.id !== botClient.user.id && (reaction.emoji.name === '⬅' || reaction.emoji.name === '➡')
   );
