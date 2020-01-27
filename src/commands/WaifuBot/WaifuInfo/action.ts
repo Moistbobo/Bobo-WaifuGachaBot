@@ -15,6 +15,11 @@ const action = (args: ICommandArgs) => {
   } = args;
   const characterName = content.replace(`${AppConfig.commandPrefix}${trigger}`, '').trim();
 
+  if (characterName.length <= 1) {
+    channel.send(GlobalTools.createEmbed({ contents: 'Character name should be more than 1 character' }));
+    return;
+  }
+
   let characterInfo: ICharacter;
   MongoDbHelper.findWaifuForName(characterName)
     .then((characters: ICharacter[]) => {
