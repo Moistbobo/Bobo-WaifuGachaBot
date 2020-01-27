@@ -1,5 +1,4 @@
-import * as Discord from 'discord.js';
-import { Guild } from 'discord.js';
+import Discord, { Guild } from 'discord.js';
 import { IEmbedArgs } from '../models/IEmbedArgs';
 
 const createEmbed = (args: IEmbedArgs, error = false) => {
