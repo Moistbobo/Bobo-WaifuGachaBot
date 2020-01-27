@@ -6,4 +6,6 @@ export interface ICommandArgs {
 
     // triggering text
     trigger: string,
+
+    botClient: Discord.Client,
 }

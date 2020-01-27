@@ -18,8 +18,11 @@ const disconnect = () => {
 
 const rollWaifu = () => Character.aggregate([{ $sample: { size: 1 } }]).exec();
 
+const findWaifuForName = (name: string) => Character.find({ name });
+
 export default {
   saveWaifu,
   rollWaifu,
+  findWaifuForName,
   disconnect,
 };

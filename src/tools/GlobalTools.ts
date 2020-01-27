@@ -35,6 +35,8 @@ const createEmbed = (args: IEmbedArgs, error = false) => {
   return embed;
 };
 
-export default {
+const GlobalTools = {
   createEmbed,
 };
+
+export default GlobalTools;

@@ -31,5 +31,7 @@ module.exports = {
 		"no-plusplus": 0,
 		"no-tabs": 0,
 		"no-mixed-spaces-and-tabs": 0,
+		"consistent-return": 0,
+		"max-len" : ["error", {code: 120, ignoreComments: true}],
 	},
 };

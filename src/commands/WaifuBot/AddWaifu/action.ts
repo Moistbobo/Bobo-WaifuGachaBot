@@ -1,5 +1,5 @@
 import { ICommandArgs } from '../../../models/ICommandArgs';
-import Embed from '../../../helpers/Embed';
+import GlobalTools from '../../../tools/GlobalTools';
 import AppConfig from '../../../AppConfig';
 import MongoDbHelper from '../../../services/db/MongoDbHelper';
 
@@ -7,10 +7,9 @@ const action = (args: ICommandArgs) => {
   const { msg: { content, channel }, trigger } = args;
 
   try {
-    console.log(content.replace(`${AppConfig.commandPrefix}${trigger}`, ''));
     const characterArgs = JSON.parse(content.replace(`${AppConfig.commandPrefix}${trigger}`, '').trim());
 
-    channel.send(Embed.createEmbed({
+    channel.send(GlobalTools.createEmbed({
       contents: `Attempting to save data: \`\`\`${JSON.stringify(characterArgs)}\`\`\``,
     }));
 
@@ -22,7 +21,7 @@ const action = (args: ICommandArgs) => {
         console.log('Something happened while saving character.');
       });
   } catch (error) {
-  	channel.send(Embed.createEmbed({
+  	channel.send(GlobalTools.createEmbed({
       contents: 'Error parsing add information',
     }));
   }

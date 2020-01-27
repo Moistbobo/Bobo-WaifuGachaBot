@@ -1,7 +1,7 @@
 import { ICommandArgs } from '../../../models/ICommandArgs';
 import MongoDbHelper from '../../../services/db/MongoDbHelper';
 import { ICharacter } from '../../../models/ICharacter';
-import Embed from '../../../helpers/Embed';
+import GlobalTools from '../../../tools/GlobalTools';
 
 const action = (args: ICommandArgs) => {
   const { msg: { channel } } = args;
@@ -11,7 +11,7 @@ const action = (args: ICommandArgs) => {
       const {
         name, nameJp, type, nameAlt, gender, series, images, meta, _id,
       } = waifu[0];
-      const embed = Embed.createEmbed(
+      const embed = GlobalTools.createEmbed(
         {
           image: images && images[0],
           contents: `${nameJp}\n${series}`,

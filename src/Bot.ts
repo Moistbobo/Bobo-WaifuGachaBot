@@ -12,6 +12,8 @@ const runBot = (token: string|undefined) => {
     return;
   }
 
+  const client = new Discord.Client();
+
   const onMessage = (msg: Discord.Message) => {
     const { commandPrefix } = AppConfig;
 
@@ -34,14 +36,13 @@ const runBot = (token: string|undefined) => {
     const commandArgs: ICommandArgs = {
       msg,
       trigger: userCommand,
+      botClient: client,
     };
 
     if (commandToRun) {
       commandToRun.action(commandArgs);
     }
   };
-
-  const client = new Discord.Client();
 
   client.on('message', onMessage);
   client.on('disconnect', MongoDbHelper.disconnect);
