@@ -13,7 +13,9 @@ const writeWaifuToDb = (waifuData: ICharacter) => new Character({ ...waifuData }
 
 const fetchRandomWaifuFromDb = () => Character.aggregate([{ $sample: { size: 1 } }]).exec();
 
-const findWaifuForName = (name: string) => Character.find({ name });
+const findWaifuForName = (
+  name: string,
+) => Character.find({ name: { $regex: new RegExp(`^${name.toLowerCase()}`, 'i') } });
 
 const fetchClaimStatusFromDb = (
   serverId: string, characterId: string,
