@@ -9,7 +9,7 @@ import Errors from '../errors';
 
 
 const action = (args: ICommandArgs) => {
-  const { botClient, msg: { channel, guild, guild: { id: serverId } } } = args;
+  const { botClient, msg: { channel, guild, guild: { id: serverId, name: serverName } } } = args;
 
   let characterInfo: ICharacter;
 
@@ -42,8 +42,9 @@ const action = (args: ICommandArgs) => {
     .then((message: Message) => {
       Tools.createClaimReactCollector({ message, botClient, characterInfo });
     })
-    .catch((err:any) => {
-      if (err === Errors.OWNER_NOT_FOUND_ERROR) {
+    .catch((err:Error) => {
+      GlobalTools.logErrorToConsole(err, serverId, serverName);
+      if (err.message === Errors.OWNER_NOT_FOUND_ERROR) {
         const embed = GlobalTools.createEmbed(
           {
             contents: 'Owner not found for character. This is a db related issue.',

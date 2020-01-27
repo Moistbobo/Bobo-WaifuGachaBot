@@ -7,6 +7,8 @@ import Tools from './tools';
 import GlobalTools from '../../../tools/GlobalTools';
 import Errors from '../errors';
 
+import Global = WebAssembly.Global;
+
 const action = (args: ICommandArgs) => {
   const {
     msg: {
@@ -66,7 +68,7 @@ const action = (args: ICommandArgs) => {
     .then((sentMessage: Message | Message[] | undefined) => (
       Tools.outputCharacterInfo({ botClient, characterInfo }, sentMessage)))
     .catch((err: Error) => {
-      console.log(`Error ${err.message} occurred in server ${serverId} | ${serverName}`);
+      GlobalTools.logErrorToConsole(err, serverId, serverName);
       if (err.message === Errors.NO_CHARACTER_FOUND) {
         channel.send(GlobalTools.createEmbed({ contents: `Could not find a character named ${characterName}` }));
       } else {

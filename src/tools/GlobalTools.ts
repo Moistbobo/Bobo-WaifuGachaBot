@@ -41,10 +41,16 @@ const findGuildMemberWithId = (
   guild: Guild, id: string,
 ) => guild.members.find((member) => member.id === id);
 
+// In the future, this can be expanded
+const logErrorToConsole = (error: Error, serverId: string, serverName: string) => {
+  console.log(`Error ${error.message} occurred in server ${serverId} | ${serverName}`);
+};
+
 const GlobalTools = {
   createEmbed,
   getRandomInt,
   findGuildMemberWithId,
+  logErrorToConsole,
 };
 
 export default GlobalTools;
