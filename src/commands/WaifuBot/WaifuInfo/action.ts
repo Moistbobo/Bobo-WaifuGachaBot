@@ -8,7 +8,11 @@ import GlobalTools from '../../../tools/GlobalTools';
 import Errors from '../errors';
 
 const action = (args: ICommandArgs) => {
-  const { msg: { channel, content, author: { id: senderId } }, trigger, botClient } = args;
+  const {
+    msg: {
+      guild: { id: serverId, name: serverName }, channel, content, author: { id: senderId },
+    }, trigger, botClient,
+  } = args;
   const characterName = content.replace(`${AppConfig.commandPrefix}${trigger}`, '').trim();
 
   let characterInfo: ICharacter;
@@ -61,16 +65,12 @@ const action = (args: ICommandArgs) => {
     })
     .then((sentMessage: Message | Message[] | undefined) => (
       Tools.outputCharacterInfo({ botClient, characterInfo }, sentMessage)))
-    .catch((err) => {
-      switch (err) {
-        case Errors.NO_CHARACTER_FOUND:
-          channel.send(`Could not find a character named ${characterName}`);
-          return;
-        case Errors.DUPLICATE_CHARACTER_ERROR:
-          channel.send('Error processing duplicate character');
-          return;
-        default:
-          channel.send('General error');
+    .catch((err: Error) => {
+      console.log(`Error ${err.message} occurred in server ${serverId} | ${serverName}`);
+      if (err.message === Errors.NO_CHARACTER_FOUND) {
+        channel.send(GlobalTools.createEmbed({ contents: `Could not find a character named ${characterName}` }));
+      } else {
+        channel.send(GlobalTools.createEmbed({ contents: 'General error. Please report this to the devleoper' }));
       }
     });
 };
