@@ -4,7 +4,7 @@ import AppConfig from '../../../AppConfig';
 import MongoDbHelper from '../../../services/MongoDbHelper';
 
 const action = (args: ICommandArgs) => {
-  const { msg: { content, channel }, trigger } = args;
+  const { msg: { content, channel, guild: { id: serverID, name: serverName } }, trigger } = args;
 
   try {
     const characterArgs = JSON.parse(content.replace(`${AppConfig.commandPrefix}${trigger}`, '').trim());
@@ -21,6 +21,7 @@ const action = (args: ICommandArgs) => {
         console.log('Something happened while saving character.');
       });
   } catch (error) {
+    GlobalTools.logErrorToConsole(error, serverID, serverName);
   	channel.send(GlobalTools.createEmbed({
       contents: 'Error parsing add information',
     }));
