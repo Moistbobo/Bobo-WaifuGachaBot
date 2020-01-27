@@ -1,4 +1,4 @@
-export const FindWaifuErrors = {
+export default {
   NO_CHARACTER_FOUND: 'NO_CHARACTER_FOUND_ERROR',
   DUPLICATE_CHARACTER_ERROR: 'DUPLICATE_CHARACTER_ERROR',
 };
