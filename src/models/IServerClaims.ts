@@ -15,11 +15,11 @@ export interface IServerClaimsModel extends IServerClaims, Document{}
 
 export const ServerClaimsSchema: Schema = new Schema(
   {
-    characterId: String,
+	  characterId: String,
 
-    serverId: String,
+	  serverId: String,
 
-    ownerId: String,
+	  ownerId: String,
   },
 );
 

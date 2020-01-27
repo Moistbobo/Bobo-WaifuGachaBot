@@ -1,4 +1,5 @@
 import * as Discord from 'discord.js';
+import { Guild } from 'discord.js';
 import { IEmbedArgs } from '../models/IEmbedArgs';
 
 const createEmbed = (args: IEmbedArgs, error = false) => {
@@ -35,8 +36,16 @@ const createEmbed = (args: IEmbedArgs, error = false) => {
   return embed;
 };
 
+const getRandomInt = (max:number) => Math.floor(Math.random() * Math.floor(max));
+
+const findGuildMemberWithId = (
+  guild: Guild, id: string,
+) => guild.members.find((member) => member.id === id);
+
 const GlobalTools = {
   createEmbed,
+  getRandomInt,
+  findGuildMemberWithId,
 };
 
 export default GlobalTools;

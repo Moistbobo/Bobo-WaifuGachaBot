@@ -15,12 +15,18 @@ const fetchRandomWaifuFromDb = () => Character.aggregate([{ $sample: { size: 1 }
 
 const findWaifuForName = (name: string) => Character.find({ name });
 
-const fetchClaimStatusFromDb = (serverId: string, characterId: string) => ServerClaims.find({ serverId, characterId });
-const writeClaimStatusToDb = (serverClaimData: IServerClaims) => new ServerClaims({ ...serverClaimData }).save();
+const fetchClaimStatusFromDb = (
+  serverId: string, characterId: string,
+) => ServerClaims.findOne({ serverId, characterId }).exec();
+const writeClaimStatusToDb = (
+  serverClaimData: {ownerId: string, serverId:string, characterId: string},
+) => new ServerClaims({ ...serverClaimData }).save();
 
 export default {
   writeWaifuToDb,
   fetchRandomWaifuFromDb,
   findWaifuForName,
+  fetchClaimStatusFromDb,
+  writeClaimStatusToDb,
   disconnect,
 };
