@@ -1,0 +1,35 @@
+export interface VndbVnData {
+	popularity: number,
+	links: {
+		[index: string] : string | null,
+		wikipedia: string | null,
+		renai: string | null,
+		wikidata: string | null,
+		encubed: string| null,
+	},
+	screens:[
+		{
+			image: string,
+			rid: number,
+			height: number,
+			width: number,
+		}
+	],
+	id: number,
+	length: number,
+	votecount: 160,
+	tags: [],
+	rating: number,
+	released: string,
+	original: string,
+	anime: [],
+	relations: [],
+	orig_lang: string[],
+	platforms: string[],
+	image_nsfw: boolean,
+	description: string,
+	aliases: string,
+	title: string,
+	languages: string[],
+	image: string,
+}

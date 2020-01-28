@@ -33,5 +33,6 @@ module.exports = {
 		"no-mixed-spaces-and-tabs": 0,
 		"consistent-return": 0,
 		"max-len" : ["error", {code: 120, ignoreComments: true}],
+		camelcase: 0,
 	},
 };

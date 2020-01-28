@@ -14,7 +14,8 @@
     "dotenv": "^8.2.0",
     "mongodb": "^3.4.1",
     "mongoose": "^5.8.7",
-    "nodemon": "^2.0.1"
+    "nodemon": "^2.0.1",
+    "vndb": "github:Permagate/vndb"
   },
   "devDependencies": {
     "@types/mongodb": "^3.3.14",

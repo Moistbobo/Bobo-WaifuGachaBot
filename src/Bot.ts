@@ -5,6 +5,7 @@ import { ICommandArgs } from './models/ICommandArgs';
 import { ICommand } from './models/ICommand';
 import AppConfig from './AppConfig';
 import MongoDbHelper from './services/MongoDbHelper';
+import VndbHelper from './services/VndbHelper';
 
 const runBot = (token: string|undefined) => {
   if (!token) {
@@ -44,8 +45,14 @@ const runBot = (token: string|undefined) => {
     }
   };
 
+  const onDisconnect = () => {
+    console.log('Stopping bot...');
+    MongoDbHelper.disconnect();
+    VndbHelper.closeVndbClient();
+  };
+
   client.on('message', onMessage);
-  client.on('disconnect', MongoDbHelper.disconnect);
+  client.on('disconnect', onDisconnect);
 
   client.login(token)
     .then(() => {

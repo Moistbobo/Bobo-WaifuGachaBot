@@ -1,15 +1,16 @@
-import { Promise } from 'mongoose';
 import { ICommandArgs } from '../../../models/ICommandArgs';
 import GlobalTools from '../../../tools/GlobalTools';
 import MongoDbHelper from '../../../services/MongoDbHelper';
 import { ICharacter } from '../../../models/ICharacter';
 import Errors from '../errors';
+import Tools from './tools';
 import { IServerClaims } from '../../../models/IServerClaims';
+import VndbHelper from '../../../services/VndbHelper';
 
-const action = (args: ICommandArgs) => {
+const action = async (args: ICommandArgs) => {
   const {
     msg: {
-      content, author: { username, avatarURL }, channel, guild: { id: serverId, name: serverName },
+      content, author: user, channel, guild: { id: serverId, name: serverName },
     }, trigger,
   } = args;
   const seriesName = GlobalTools.removeTriggerFromMsg(trigger, content);
@@ -19,46 +20,33 @@ const action = (args: ICommandArgs) => {
     return;
   }
 
-  Promise.all([MongoDbHelper.findWaifuInSeries(seriesName),
-    MongoDbHelper.fetchClaimedWaifuForServer(serverId)])
-    .then((response: [ICharacter[], IServerClaims[]]) => {
-      const [characters, serverClaims] = response;
+  try {
+    const characters = await MongoDbHelper.findWaifuInSeries(seriesName);
+    const serverClaims = await MongoDbHelper.fetchClaimedWaifuForServer(serverId);
 
-      if (!characters || characters.length === 0) {
-        throw new Error(Errors.NO_CHARACTER_FOUND);
-      }
-      // get the actual series name from the first character
-      const [first] = characters;
-      const { series } = first;
+    const [firstCharacter] = characters;
+    const { series, type } = firstCharacter;
 
-      const contents = characters.map((character: ICharacter) => {
-        const { id, name } = character;
-        const isClaimed = serverClaims.find((claims) => claims.characterId === id);
+    const characterList = Tools.createCharacterList(characters, serverClaims);
 
-        return `• ${name} ${isClaimed ? '💞' : ''} `;
-      });
-
-      const embed = GlobalTools.createEmbed(
-        {
-          title: `Characters in ${series}`,
-          contents: `${contents.join('\n')}\nTotal Characters: ${characters.length}`,
-          footer: `Requested by: ${username}`,
-          footerImage: avatarURL,
-        },
-      );
-
+    if (type === 'vn') {
+      const vnInformation = await VndbHelper.getVnWithTitle(series);
+      const embed = Tools.generateVnSeriesInfoEmbed({ user, characterList, vnInformation });
       channel.send(embed);
-    })
-    .catch((error: Error) => {
-      const { message } = error;
+    } else {
+      const embed = Tools.generateSeriesInfoEmbed({ user, characterList, series });
+      channel.send(embed);
+    }
+  } catch (error) {
+    const { message } = error;
 
-      GlobalTools.logErrorToConsole(error, serverId, serverName);
+    GlobalTools.logErrorToConsole(error, serverId, serverName);
 
-      if (message === Errors.NO_CHARACTER_FOUND) {
-        const embed = GlobalTools.createEmbed({ contents: `No characters found for series ${seriesName}` });
-        channel.send(embed);
-      }
-    });
+    if (message === Errors.NO_CHARACTER_FOUND) {
+      const embed = GlobalTools.createEmbed({ contents: `No characters found for series ${seriesName}` });
+      channel.send(embed);
+    }
+  }
 };
 
 export default action;
