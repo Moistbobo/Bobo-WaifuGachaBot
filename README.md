@@ -9,6 +9,7 @@ Database json files area available [here](https://github.com/Moistbobo/Bobo-waif
 - Adding waifu through valid json documents in discord
 - Waifu Gacha
 - Server based claiming
+- vndb integration (query vndb for additional information on vn type series)
 
 ## Requirements
 - [NodeJS](https://nodejs.org/en/)
@@ -29,4 +30,7 @@ Database json files area available [here](https://github.com/Moistbobo/Bobo-waif
 3. Add your character by using the `.addwaifu` command with your filled-out arguments
 4. Use the `.rollwaifu` command to roll for the characters you added
 
+## Vndb integration
+To use vndb integration, set the type of vn characters to `vn` and ensure that the `seriesName` field matches the name of the series
+as seen on vndb
  
