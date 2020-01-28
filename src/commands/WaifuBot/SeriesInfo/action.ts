@@ -31,7 +31,8 @@ const action = async (args: ICommandArgs) => {
 
     if (type === 'vn') {
       const vnInformation = await VndbHelper.getVnWithTitle(series);
-      const embed = Tools.generateVnSeriesInfoEmbed({ user, characterList, vnInformation });
+      const embed = vnInformation ? Tools.generateVnSeriesInfoEmbed({ user, characterList, vnInformation })
+        : Tools.generateSeriesInfoEmbed({ user, characterList, series });
       channel.send(embed);
     } else {
       const embed = Tools.generateSeriesInfoEmbed({ user, characterList, series });
