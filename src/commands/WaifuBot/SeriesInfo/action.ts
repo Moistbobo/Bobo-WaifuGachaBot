@@ -1,17 +1,15 @@
 import { ICommandArgs } from '../../../models/ICommandArgs';
 import GlobalTools from '../../../tools/GlobalTools';
 import MongoDbHelper from '../../../services/MongoDbHelper';
-import { ICharacter } from '../../../models/ICharacter';
-import Errors from '../errors';
 import Tools from './tools';
-import { IServerClaims } from '../../../models/IServerClaims';
 import VndbHelper from '../../../services/VndbHelper';
+import MALHelper from '../../../services/MALHelper';
 
 const action = async (args: ICommandArgs) => {
   const {
     msg: {
       content, author: user, channel, guild: { id: serverId, name: serverName },
-    }, trigger,
+    }, trigger, botClient,
   } = args;
   const seriesName = GlobalTools.removeTriggerFromMsg(trigger, content);
 
@@ -21,8 +19,14 @@ const action = async (args: ICommandArgs) => {
   }
 
   try {
+    channel.startTyping(15);
     const characters = await MongoDbHelper.findWaifuInSeries(seriesName);
     const serverClaims = await MongoDbHelper.fetchClaimedWaifuForServer(serverId);
+
+    if (characters.length === 0) {
+      const embed = GlobalTools.createEmbed({ contents: `No characters found for series ${seriesName}` });
+      return channel.send(embed);
+    }
 
     const [firstCharacter] = characters;
     const { series, type } = firstCharacter;
@@ -31,22 +35,35 @@ const action = async (args: ICommandArgs) => {
 
     if (type === 'vn') {
       const vnInformation = await VndbHelper.getVnWithTitle(series);
-      const embed = vnInformation ? Tools.generateVnSeriesInfoEmbed({ user, characterList, vnInformation })
+      const embed = vnInformation
+        ? Tools.generateVnSeriesInfoEmbed({ user, characterList, vnInformation })
         : Tools.generateSeriesInfoEmbed({ user, characterList, series });
+      channel.send(embed);
+    } else if (type === 'manga') {
+      const mangaInfo = await MALHelper.getMangaWithTitle(series);
+
+      const embed = mangaInfo
+        ? Tools.generateMangaSeriesInfoEmbed({ user, characterList, mangaInfo })
+        : Tools.generateSeriesInfoEmbed({ user, characterList, series });
+
       channel.send(embed);
     } else {
       const embed = Tools.generateSeriesInfoEmbed({ user, characterList, series });
       channel.send(embed);
     }
   } catch (error) {
-    const { message } = error;
-
     GlobalTools.logErrorToConsole(error, serverId, serverName);
 
-    if (message === Errors.NO_CHARACTER_FOUND) {
-      const embed = GlobalTools.createEmbed({ contents: `No characters found for series ${seriesName}` });
-      channel.send(embed);
-    }
+    const embed = GlobalTools.createEmbed(
+      {
+        contents: `An error has occured. Please include this information if submitting a bug report:
+            \`\`\`Command: ${trigger}\nError: ${error}\`\`\``,
+      },
+    );
+
+    channel.send(embed);
+  } finally {
+    channel.stopTyping(true);
   }
 };
 

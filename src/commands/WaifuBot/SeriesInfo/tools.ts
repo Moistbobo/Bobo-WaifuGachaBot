@@ -3,6 +3,7 @@ import { ICharacter } from '../../../models/ICharacter';
 import GlobalTools from '../../../tools/GlobalTools';
 import { IServerClaims } from '../../../models/IServerClaims';
 import { VndbVnData } from '../../../models/VndbVnData';
+import { MALMangaData } from '../../../models/MALMangaData';
 
 const createCharacterList = (
   characters: ICharacter[], serverClaims: IServerClaims[],
@@ -58,8 +59,32 @@ const generateVnSeriesInfoEmbed = (
   return embed;
 };
 
+const generateMangaSeriesInfoEmbed = (
+  { user, characterList, mangaInfo }:
+        {user: User, characterList:string, mangaInfo: MALMangaData},
+) => {
+  const { username, avatarURL } = user;
+  const {
+    image_url, title: series, synopsis, score, url,
+  } = mangaInfo;
+
+  const embed = GlobalTools.createEmbed(
+    {
+      title: `Characters in ${series}`,
+      contents: `**Series Information**\n${synopsis}(${url})\n\n\n${characterList}`,
+      footer: `Requested by: ${username} | Data from MAL`,
+      author: `Rating: ${score}`,
+      footerImage: avatarURL,
+      image: image_url,
+    },
+  );
+
+  return embed;
+};
+
 export default {
   generateSeriesInfoEmbed,
   generateVnSeriesInfoEmbed,
+  generateMangaSeriesInfoEmbed,
   createCharacterList,
 };
