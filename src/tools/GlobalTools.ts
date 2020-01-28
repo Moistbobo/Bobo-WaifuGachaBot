@@ -1,16 +1,17 @@
 import Discord, { Guild } from 'discord.js';
 import { IEmbedArgs } from '../models/IEmbedArgs';
+import AppConfig from '../AppConfig';
 
 const createEmbed = (args: IEmbedArgs, error = false) => {
   const {
     footer, contents, author, url, title, image, thumbnail,
-    extraFields,
+    extraFields, footerImage,
   } = args;
 
   const embed = new Discord.RichEmbed()
     .setColor(error ? '#f08080' : '#499369');
 
-  if (footer) embed.setFooter(footer);
+  if (footer) embed.setFooter(footer, footerImage);
   if (contents) embed.setDescription(contents);
   if (title) embed.setTitle(title);
   if (author) embed.setAuthor(author);
@@ -46,11 +47,16 @@ const logErrorToConsole = (error: Error, serverId: string, serverName: string) =
   console.log(`Error ${error.message} occurred in server ${serverId} | ${serverName}`);
 };
 
+const removeTriggerFromMsg = (
+  trigger: string, msgContent: string,
+) => msgContent.replace(`${AppConfig.commandPrefix}${trigger}`, '').trim();
+
 const GlobalTools = {
   createEmbed,
   getRandomInt,
   findGuildMemberWithId,
   logErrorToConsole,
+  removeTriggerFromMsg,
 };
 
 export default GlobalTools;

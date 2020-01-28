@@ -18,8 +18,8 @@ const findWaifuForName = (
 ) => Character.find({ name: { $regex: new RegExp(`^.*${name.toLowerCase()}.*`, 'i') } });
 
 const findWaifuInSeries = (
-  name: string,
-) => Character.find({ series: { $regex: new RegExp(`^${name.toLowerCase()}`, 'i') } });
+  series: string,
+) => Character.find({ series: { $regex: new RegExp(`^${series.toLowerCase()}`, 'i') } });
 
 const fetchClaimStatusFromDb = (
   serverId: string, characterId: string,
@@ -28,6 +28,14 @@ const writeClaimStatusToDb = (
   serverClaimData: {ownerId: string; serverId: string; characterId: string, seriesName: string},
 ) => new ServerClaims({ ...serverClaimData }).save();
 
+const fetchClaimedWaifuForSeries = (
+  series: string,
+) => ServerClaims.find({ seriesName: { $regex: new RegExp(`^${series.toLowerCase()}`, 'i') } });
+
+const fetchClaimedWaifuForServer = (
+  serverId: string,
+) => ServerClaims.find({ serverId });
+
 export default {
   writeWaifuToDb,
   fetchRandomWaifuFromDb,
@@ -35,5 +43,7 @@ export default {
   findWaifuInSeries,
   fetchClaimStatusFromDb,
   writeClaimStatusToDb,
+  fetchClaimedWaifuForSeries,
+  fetchClaimedWaifuForServer,
   disconnect,
 };
