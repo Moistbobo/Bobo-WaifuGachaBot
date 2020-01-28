@@ -9,6 +9,8 @@ export interface IServerClaims extends Document{
 
 	ownerId: string;
 
+	seriesName: string;
+
 }
 
 export interface IServerClaimsModel extends IServerClaims, Document{}
@@ -20,6 +22,8 @@ export const ServerClaimsSchema: Schema = new Schema(
 	  serverId: String,
 
 	  ownerId: String,
+
+	  seriesName: String,
   },
 );
 

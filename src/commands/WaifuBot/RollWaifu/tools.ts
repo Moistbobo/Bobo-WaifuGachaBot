@@ -50,9 +50,11 @@ const createClaimReactCollector = (args: createClaimReactArgs) => {
         .then((collected) => {
           const collectingUser = collected.first().users.array()[1];
           const { id: ownerId, username } = collectingUser;
-          const { _id: characterId, name: characterName } = characterInfo;
+          const { _id: characterId, name: characterName, series } = characterInfo;
 
-          MongoDbHelper.writeClaimStatusToDb({ serverId, characterId, ownerId });
+          MongoDbHelper.writeClaimStatusToDb({
+            serverId, characterId, ownerId, seriesName: series,
+          });
 
           const claimedEmbed = createRollWaifuEmbed(characterInfo, collectingUser);
 
