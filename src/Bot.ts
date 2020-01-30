@@ -4,7 +4,7 @@ import Commands from './commands';
 import { ICommandArgs } from './models/ICommandArgs';
 import { ICommand } from './models/ICommand';
 import AppConfig from './AppConfig';
-import MongoDbHelper from './services/MongoDbHelper';
+import MongoDbHelper from './services/DbHelpers/WaifuDbHelper';
 import VndbHelper from './services/VndbHelper';
 
 const runBot = (token: string|undefined) => {
@@ -17,7 +17,7 @@ const runBot = (token: string|undefined) => {
 
   const onMessage = (msg: Discord.Message) => {
     const { commandPrefix } = AppConfig;
-
+    
     if (!commandPrefix) {
       console.error('Please enter a bot prefix in the .env file');
       return;

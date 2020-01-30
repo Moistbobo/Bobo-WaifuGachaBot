@@ -1,7 +1,7 @@
 import { ICommandArgs } from '../../../models/ICommandArgs';
 import GlobalTools from '../../../tools/GlobalTools';
 import AppConfig from '../../../AppConfig';
-import MongoDbHelper from '../../../services/MongoDbHelper';
+import MongoDbHelper from '../../../services/DbHelpers/WaifuDbHelper';
 
 const action = (args: ICommandArgs) => {
   const { msg: { content, channel, guild: { id: serverID, name: serverName } }, trigger } = args;

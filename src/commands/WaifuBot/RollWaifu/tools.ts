@@ -1,7 +1,7 @@
 import { Client, Message, User } from 'discord.js';
 import { ICharacter } from '../../../models/ICharacter';
 import GlobalTools from '../../../tools/GlobalTools';
-import MongoDbHelper from '../../../services/MongoDbHelper';
+import MongoDbHelper from '../../../services/DbHelpers/WaifuDbHelper';
 
 const createRollWaifuEmbed = (character: ICharacter, claimingUser?: User) => {
   const {

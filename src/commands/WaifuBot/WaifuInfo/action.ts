@@ -1,6 +1,6 @@
 import { Message } from 'discord.js';
 import { ICommandArgs } from '../../../models/ICommandArgs';
-import MongoDbHelper from '../../../services/MongoDbHelper';
+import MongoDbHelper from '../../../services/DbHelpers/WaifuDbHelper';
 import { ICharacter } from '../../../models/ICharacter';
 import AppConfig from '../../../AppConfig';
 import Tools from './tools';

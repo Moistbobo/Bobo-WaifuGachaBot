@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-import { Character, CharacterSchema, ICharacter } from '../models/ICharacter';
-import { IServerClaims, ServerClaims } from '../models/IServerClaims';
+import { Character, CharacterSchema, ICharacter } from '../../models/ICharacter';
+import { IServerClaims, ServerClaims } from '../../models/IServerClaims';
 
 mongoose.connect('mongodb://localhost/bobo-waifubot', { useNewUrlParser: true, useUnifiedTopology: true });
 

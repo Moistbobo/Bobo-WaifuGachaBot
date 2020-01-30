@@ -1,6 +1,6 @@
 import { ICommandArgs } from '../../../models/ICommandArgs';
 import GlobalTools from '../../../tools/GlobalTools';
-import MongoDbHelper from '../../../services/MongoDbHelper';
+import MongoDbHelper from '../../../services/DbHelpers/WaifuDbHelper';
 import Tools from './tools';
 import VndbHelper from '../../../services/VndbHelper';
 import MALHelper from '../../../services/MALHelper';
