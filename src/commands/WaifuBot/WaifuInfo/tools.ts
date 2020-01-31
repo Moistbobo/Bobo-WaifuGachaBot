@@ -11,9 +11,10 @@ const createWaifuInfoEmbed = (character: ICharacter, imageIndex = 0, owner?: Use
   return GlobalTools.createEmbed(
     {
       image: images && images[imageIndex],
-      contents: `Name JP: ${nameJp}\nSeries: ${series}`,
+      contents: `${nameJp ? `Name JP: ${nameJp}` : ''}\nSeries: ${series}`,
       title: name,
-      footer: owner ? `Claimed by ${owner.username}` : `Type: ${type} | ID: ${_id}`,
+      footer: owner ? `Claimed by ${owner.username} | ${imageIndex + 1}/${images.length}`
+        : `Type: ${type} | ${imageIndex + 1}/${images.length}`,
       footerImage: owner ? owner.avatarURL : '',
     },
   );
