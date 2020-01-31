@@ -1,16 +1,17 @@
 import { Message } from 'discord.js';
 import { ICommandArgs } from '../../../models/ICommandArgs';
-import MongoDbHelper from '../../../services/DbHelpers/WaifuDbHelper';
 import { ICharacter } from '../../../models/ICharacter';
 import AppConfig from '../../../AppConfig';
 import Tools from './tools';
 import GlobalTools from '../../../tools/GlobalTools';
 import Errors from '../errors';
+import WaifuDbHelper from '../../../services/DbHelpers/WaifuDbHelper';
+import { IServerClaims } from '../../../models/IServerClaims';
 
 const action = (args: ICommandArgs) => {
   const {
     msg: {
-      guild: { id: serverId, name: serverName }, channel, content, author: { id: senderId },
+      guild: { members, id: serverId, name: serverName }, channel, content, author: { id: senderId },
     }, trigger, botClient,
   } = args;
   const characterName = content.replace(`${AppConfig.commandPrefix}${trigger}`, '').trim();
@@ -21,8 +22,8 @@ const action = (args: ICommandArgs) => {
   }
 
   let characterInfo: ICharacter;
-  MongoDbHelper.findWaifuForName(characterName)
-    .then((characters: ICharacter[]) => {
+  WaifuDbHelper.findWaifuForName(characterName)
+    .then(async (characters: ICharacter[]) => {
       if (characters.length === 0) {
         throw new Error(Errors.NO_CHARACTER_FOUND);
       } else if (characters.length > 1) {
@@ -64,6 +65,14 @@ const action = (args: ICommandArgs) => {
         });
       } else {
         [characterInfo] = characters;
+        const { id: characterId } = characterInfo;
+        const claimedInfo: IServerClaims | null = await WaifuDbHelper.fetchClaimStatusFromDb(serverId, characterId);
+        if (claimedInfo) {
+          const owningMember = members.find((member) => member.id === claimedInfo.ownerId);
+          const embed = Tools.createWaifuInfoEmbed(characterInfo, 0, owningMember.user);
+
+          return channel.send(embed);
+        }
         const embed = Tools.createWaifuInfoEmbed(characterInfo);
 
         return channel.send(embed);

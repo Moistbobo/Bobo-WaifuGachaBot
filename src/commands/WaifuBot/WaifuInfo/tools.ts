@@ -1,8 +1,9 @@
 import { Client, Message, User } from 'discord.js';
 import { ICharacter } from '../../../models/ICharacter';
 import GlobalTools from '../../../tools/GlobalTools';
+import { IServerClaims } from '../../../models/IServerClaims';
 
-const createWaifuInfoEmbed = (character: ICharacter, imageIndex = 0) => {
+const createWaifuInfoEmbed = (character: ICharacter, imageIndex = 0, owner?: User) => {
   const {
     name, nameJp, type, nameAlt, gender, series, images, meta, _id,
   } = character;
@@ -12,7 +13,8 @@ const createWaifuInfoEmbed = (character: ICharacter, imageIndex = 0) => {
       image: images && images[imageIndex],
       contents: `Name JP: ${nameJp}\nSeries: ${series}`,
       title: name,
-      footer: `Type: ${type} | ID: ${_id}`,
+      footer: owner ? `Claimed by ${owner.username}` : `Type: ${type} | ID: ${_id}`,
+      footerImage: owner ? owner.avatarURL : '',
     },
   );
 };
