@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-import { Character, CharacterSchema, ICharacter } from '../../models/ICharacter';
-import { IServerClaims, ServerClaims } from '../../models/IServerClaims';
+import { Character, ICharacter } from '../../models/ICharacter';
+import { ServerClaims } from '../../models/IServerClaims';
 
 mongoose.connect('mongodb://localhost/bobo-waifubot', { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -12,6 +12,12 @@ const disconnect = () => {
 const writeWaifuToDb = (waifuData: ICharacter) => new Character({ ...waifuData }).save();
 
 const fetchRandomWaifuFromDb = () => Character.aggregate([{ $sample: { size: 1 } }]).exec();
+
+const fetchCharactersById = (ids: string[]) => Character.find({
+  _id: {
+    $in: ids.map((id) => mongoose.Types.ObjectId(id)),
+  },
+});
 
 const findWaifuForName = (
   name: string,
@@ -36,6 +42,11 @@ const fetchClaimedWaifuForServer = (
   serverId: string,
 ) => ServerClaims.find({ serverId });
 
+const fetchUserClaimedWaifuForServer = (
+  userId: string,
+  serverId: string,
+) => ServerClaims.find({ serverId, ownerId: userId });
+
 export default {
   writeWaifuToDb,
   fetchRandomWaifuFromDb,
@@ -45,5 +56,7 @@ export default {
   writeClaimStatusToDb,
   fetchClaimedWaifuForSeries,
   fetchClaimedWaifuForServer,
+  fetchUserClaimedWaifuForServer,
+  fetchCharactersById,
   disconnect,
 };
