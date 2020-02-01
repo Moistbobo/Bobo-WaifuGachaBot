@@ -11,7 +11,9 @@ const disconnect = () => {
 
 const writeWaifuToDb = (waifuData: ICharacter) => new Character({ ...waifuData }).save();
 
-const fetchRandomWaifuFromDb = () => Character.aggregate([{ $sample: { size: 1 } }]).exec();
+const fetchRandomWaifuFromDb = () => Character.aggregate([
+  { $match: { gender: 'F' } },
+  { $sample: { size: 1 } }]).exec();
 
 const fetchCharactersById = (ids: string[]) => Character.find({
   _id: {
