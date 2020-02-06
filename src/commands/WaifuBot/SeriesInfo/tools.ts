@@ -15,14 +15,14 @@ const createCharacterList = (
     return `• ${name} ${isClaimed ? '💞' : ''} `;
   });
 
-  return contents.join('\n');
+  return contents;
 };
 
 const generateSeriesInfoEmbed = (
-  { user, characterList, series }:
-        {user: User, characterList: string, series: string },
+  { author, characterList, series }:
+        {author: User, characterList: string, series: string },
 ) => {
-  const { username, avatarURL } = user;
+  const { username, avatarURL } = author;
 
   const embed = GlobalTools.createEmbed(
     {
@@ -37,10 +37,10 @@ const generateSeriesInfoEmbed = (
 };
 
 const generateVnSeriesInfoEmbed = (
-  { user, characterList, vnInformation }:
-        {user: User, characterList:string, vnInformation: VndbVnData},
+  { author, characterList, vnInformation }:
+        {author: User, characterList:string, vnInformation: VndbVnData},
 ) => {
-  const { username, avatarURL } = user;
+  const { username, avatarURL } = author;
   const {
     image, title: series, description, rating, popularity, id,
   } = vnInformation;
@@ -60,10 +60,10 @@ const generateVnSeriesInfoEmbed = (
 };
 
 const generateMangaSeriesInfoEmbed = (
-  { user, characterList, mangaInfo }:
-        {user: User, characterList:string, mangaInfo: MALMangaData},
+  { author, characterList, mangaInfo }:
+        {author: User, characterList:string, mangaInfo: MALMangaData},
 ) => {
-  const { username, avatarURL } = user;
+  const { username, avatarURL } = author;
   const {
     image_url, title: series, synopsis, score, url,
   } = mangaInfo;
