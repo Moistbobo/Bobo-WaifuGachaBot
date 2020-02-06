@@ -9,9 +9,13 @@ const action = async (args: ICommandArgs) => {
   const {
     msg: {
       content, author: user, channel, guild: { id: serverId, name: serverName },
-    }, trigger, botClient,
+    }, trigger,
   } = args;
-  const seriesName = GlobalTools.removeTriggerFromMsg(trigger, content);
+  let seriesName = GlobalTools.removeTriggerFromMsg(trigger, content);
+  const hasModifier = seriesName.includes('-info');
+  if (hasModifier) {
+    seriesName = seriesName.replace('-info', '').trim();
+  }
 
   if (seriesName.length <= 1) {
     channel.send(GlobalTools.createEmbed({ contents: 'Series name should be more than one character.' }, true));
@@ -25,6 +29,7 @@ const action = async (args: ICommandArgs) => {
 
     if (characters.length === 0) {
       const embed = GlobalTools.createEmbed({ contents: `No characters found for series ${seriesName}` });
+      channel.stopTyping(true);
       return channel.send(embed);
     }
 
@@ -33,22 +38,28 @@ const action = async (args: ICommandArgs) => {
 
     const characterList = Tools.createCharacterList(characters, serverClaims);
 
-    if (type === 'vn') {
-      const vnInformation = await VndbHelper.getVnWithTitle(series);
-      const embed = vnInformation
-        ? Tools.generateVnSeriesInfoEmbed({ user, characterList, vnInformation })
-        : Tools.generateSeriesInfoEmbed({ user, characterList, series });
-      channel.send(embed);
-    } else if (type === 'manga') {
-      const mangaInfo = await MALHelper.getMangaWithTitle(series);
+    if (hasModifier) {
+      if (type === 'vn') {
+        const vnInformation = await VndbHelper.getVnWithTitle(series);
+        const embed = vnInformation
+          ? Tools.generateVnSeriesInfoEmbed({ user, characterList, vnInformation })
+          : Tools.generateSeriesInfoEmbed({ user, characterList, series });
+        channel.send(embed);
+      } else if (type === 'manga') {
+        const mangaInfo = await MALHelper.getMangaWithTitle(series);
 
-      const embed = mangaInfo
-        ? Tools.generateMangaSeriesInfoEmbed({ user, characterList, mangaInfo })
-        : Tools.generateSeriesInfoEmbed({ user, characterList, series });
+        const embed = mangaInfo
+          ? Tools.generateMangaSeriesInfoEmbed({ user, characterList, mangaInfo })
+          : Tools.generateSeriesInfoEmbed({ user, characterList, series });
 
-      channel.send(embed);
+        channel.send(embed);
+      } else {
+        const embed = Tools.generateSeriesInfoEmbed({ user, characterList, series });
+        channel.send(embed);
+      }
     } else {
       const embed = Tools.generateSeriesInfoEmbed({ user, characterList, series });
+
       channel.send(embed);
     }
   } catch (error) {
