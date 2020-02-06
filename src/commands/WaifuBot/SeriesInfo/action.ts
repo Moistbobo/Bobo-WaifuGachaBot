@@ -63,7 +63,7 @@ const action = async (args: ICommandArgs) => {
     }
 
     const message = await channel.send(embed) as Message;
-
+    channel.stopTyping(true);
     if (characterList.length > itemsPerPage) {
       await message.react('⬅');
       await message.react('➡');
