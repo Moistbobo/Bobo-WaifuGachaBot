@@ -17,7 +17,7 @@ const runBot = (token: string|undefined) => {
 
   const onMessage = (msg: Discord.Message) => {
     const { commandPrefix } = AppConfig;
-    
+
     if (!commandPrefix) {
       console.error('Please enter a bot prefix in the .env file');
       return;
