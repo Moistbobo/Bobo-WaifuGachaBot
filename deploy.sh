@@ -7,4 +7,4 @@ echo "PATH:" + ${path}
 
 ssh-keyscan ${host} >> ~/.ssh/known_hosts
 scp -r package.json .env dist/** ${user}@${host}:${path}
-ssh ${host} 'cd test; npm i; exit;'
+ssh ${user}@${host} 'cd test; npm i; exit;'
