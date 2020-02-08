@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build" : "tsc --build",
-    "build-and-run": " eslint --fix \"src/**\" && tsc --build && node dist/index.js"
+    "build": "tsc --build",
+    "build-and-run": " eslint --fix \"src/**\" && tsc --build && node dist/index.js",
+    "deploy-uat": "sh deploy.sh",
+    "build-and-deploy" : "build && deploy-uat"
   },
   "author": "",
   "license": "ISC",
