@@ -44,6 +44,11 @@ const fetchClaimedWaifuForServer = (
   serverId: string,
 ) => ServerClaims.find({ serverId });
 
+const fetchClaimedWaifuForServerAndSeries = (
+  serverId: string,
+  seriesName: string,
+) => ServerClaims.find({ serverId, seriesName });
+
 const fetchUserClaimedWaifuForServer = (
   userId: string,
   serverId: string,
@@ -59,6 +64,7 @@ export default {
   fetchClaimedWaifuForSeries,
   fetchClaimedWaifuForServer,
   fetchUserClaimedWaifuForServer,
+  fetchClaimedWaifuForServerAndSeries,
   fetchCharactersById,
   disconnect,
 };

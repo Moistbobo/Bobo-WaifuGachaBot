@@ -27,7 +27,6 @@ const action = async (args: ICommandArgs) => {
   try {
     channel.startTyping();
     const characters = await MongoDbHelper.findWaifuInSeries(seriesName);
-    const serverClaims = await MongoDbHelper.fetchClaimedWaifuForServer(serverId);
 
     if (characters.length === 0) {
       const embed = GlobalTools.createEmbed({ contents: `No characters found for series ${seriesName}` });
@@ -37,6 +36,8 @@ const action = async (args: ICommandArgs) => {
 
     const [firstCharacter] = characters;
     const { series, type } = firstCharacter;
+
+    const serverClaims = await MongoDbHelper.fetchClaimedWaifuForServerAndSeries(serverId, series);
 
     const characterList = Tools.createCharacterList(characters, serverClaims);
     let embed;
@@ -48,18 +49,42 @@ const action = async (args: ICommandArgs) => {
         const vnInformation = await VndbHelper.getVnWithTitle(series);
         embed = vnInformation
           ? Tools.generateVnSeriesInfoEmbed({ author, characterList: initialCharacterList, vnInformation })
-          : Tools.generateSeriesInfoEmbed({ author, characterList: initialCharacterList, series });
+          : Tools.generateSeriesInfoEmbed({
+            author,
+            characterList: initialCharacterList,
+            series,
+            claimedAmount: serverClaims.length,
+            amountClaimable: characterList.length,
+          });
       } else if (type === 'manga') {
         const mangaInfo = await MALHelper.getMangaWithTitle(series);
 
         embed = mangaInfo
           ? Tools.generateMangaSeriesInfoEmbed({ author, characterList: initialCharacterList, mangaInfo })
-          : Tools.generateSeriesInfoEmbed({ author, characterList: initialCharacterList, series });
+          : Tools.generateSeriesInfoEmbed({
+            author,
+            characterList: initialCharacterList,
+            series,
+            claimedAmount: serverClaims.length,
+            amountClaimable: characterList.length,
+          });
       } else {
-        embed = Tools.generateSeriesInfoEmbed({ author, characterList: initialCharacterList, series });
+        embed = Tools.generateSeriesInfoEmbed({
+          author,
+          characterList: initialCharacterList,
+          series,
+          claimedAmount: serverClaims.length,
+          amountClaimable: characterList.length,
+        });
       }
     } else {
-      embed = Tools.generateSeriesInfoEmbed({ author, characterList: initialCharacterList, series });
+      embed = Tools.generateSeriesInfoEmbed({
+        author,
+        characterList: initialCharacterList,
+        series,
+        claimedAmount: serverClaims.length,
+        amountClaimable: characterList.length,
+      });
     }
 
     const message = await channel.send(embed) as Message;

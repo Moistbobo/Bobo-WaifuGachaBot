@@ -19,14 +19,16 @@ const createCharacterList = (
 };
 
 const generateSeriesInfoEmbed = (
-  { author, characterList, series }:
-        {author: User, characterList: string, series: string },
+  {
+    author, characterList, series, claimedAmount, amountClaimable,
+  }:
+        {author: User, characterList: string, series: string, claimedAmount: number, amountClaimable: number},
 ) => {
   const { username, avatarURL } = author;
 
   const embed = GlobalTools.createEmbed(
     {
-      title: `Characters in ${series}`,
+      title: `Characters in ${series} ${claimedAmount} / ${amountClaimable}`,
       contents: `${characterList}`,
       footer: `Requested by: ${username}`,
       footerImage: avatarURL,
