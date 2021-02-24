@@ -1,6 +1,5 @@
-
-# WaifuBot (0.0.1-beta)
-Made in China version of Mudae bot's Waifu rolling. Currently being rewritten.
+ # WaifuBot (0.0.1-beta)
+Simple waifu gacha bot where users can roll and claim waifus. This project has nothing to do with Mudae bot except being inspired by it. It's a personal project for me to experiment with a new folder structure for my own discord bots as well as play around with the discord.js framework. Sorry if this is the first result on google. Feel free to forward all complaints and concerns to me on discord at moistbobo#0001
 
 ## Database files
 Database json files area available [here](https://github.com/Moistbobo/Bobo-waifubot-db)
