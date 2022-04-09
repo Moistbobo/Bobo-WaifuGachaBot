@@ -17,7 +17,7 @@
     "cron": "^1.8.2",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "mongodb": "^3.4.1",
     "mongoose": "^5.8.7",
     "node-myanimelist": "^2.0.0",
