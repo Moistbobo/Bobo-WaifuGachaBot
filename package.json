@@ -19,7 +19,7 @@
     "dotenv": "^8.2.0",
     "moment": "^2.24.0",
     "mongodb": "^3.4.1",
-    "mongoose": "^5.8.7",
+    "mongoose": "^5.13.15",
     "node-myanimelist": "^2.0.0",
     "nodemon": "^2.0.1",
     "vndb": "github:Permagate/vndb"
